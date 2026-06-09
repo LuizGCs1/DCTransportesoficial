@@ -608,8 +608,127 @@
     .form-grid-2 { grid-template-columns: 1fr; }
   }
 </style>
+<style>
+  /* Accessibility widget styles */
+  #a11y-widget {
+    position: fixed;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  #a11y-toggle {
+    width: 48px; height: 48px; border-radius: 8px;
+    background: var(--navy); color: var(--white);
+    border: none; box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+
+  #a11y-panel {
+    display: none; margin-top: 10px; background: rgba(255,255,255,0.98);
+    border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    overflow: hidden; width: 220px;
+  }
+
+  #a11y-panel.show { display: block; }
+
+  #a11y-panel button { display: block; width: 100%; border: none; background: transparent; padding: 12px 14px; text-align: left; cursor: pointer; font-weight:600; }
+  #a11y-panel button:hover { background: rgba(0,0,0,0.06); }
+
+  /* A11y classes */
+  .a11y-contrast-dark { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark a { color: #fff !important; }
+
+  .a11y-contrast-light { background: #fff !important; color: #000 !important; }
+  .a11y-contrast-light a { color: #0066cc !important; }
+
+  /* Dark contrast mode: enforce on main layout elements */
+  .a11y-contrast-dark, .a11y-contrast-dark body, .a11y-contrast-dark html { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark nav, .a11y-contrast-dark footer, .a11y-contrast-dark section, .a11y-contrast-dark header { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark a { color: #ffd400 !important; }
+  .a11y-contrast-dark .btn-primary { background: #ffd400 !important; color: #000 !important; border-color: #ffd400 !important; }
+  .a11y-contrast-dark .btn-outline { border-color: #ffd400 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark input, .a11y-contrast-dark textarea, .a11y-contrast-dark select { background: #111 !important; color: #ffd400 !important; border-color: #333 !important; }
+  .a11y-contrast-dark .footer-logo span { color: #ffd400 !important; }
+  .a11y-contrast-dark .nav-links a { color: #ffd400 !important; }
+  .a11y-contrast-dark .logo-mark, .a11y-contrast-dark .logo-sub { color: #ffd400 !important; }
+  .a11y-contrast-dark .section-title, .a11y-contrast-dark .section-tag, .a11y-contrast-dark h1, .a11y-contrast-dark h2, .a11y-contrast-dark h3, .a11y-contrast-dark p, .a11y-contrast-dark label { color: #ffd400 !important; }
+  .a11y-contrast-dark .hero-sub, .a11y-contrast-dark .hero-title { color: #ffd400 !important; }
+  .a11y-contrast-dark .contato-form .form-row label, .a11y-contrast-dark .curr-form .form-row label { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-features li { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-features li::before { background: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-visual { background: #000 !important; border: 2px solid #ffd400 !important; }
+  .a11y-contrast-dark .sobre-visual::before { background: transparent !important; }
+  .a11y-contrast-dark .sobre-stat { background: #000 !important; border-color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-stat .num { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-stat .lbl { color: #ffd400 !important; }
+  .a11y-contrast-dark .servico-card, .a11y-contrast-dark .dif-card, .a11y-contrast-dark .curr-block { background: #000 !important; border: 2px solid #ffd400 !important; }
+  .a11y-contrast-dark .servico-card h3, .a11y-contrast-dark .servico-card p, .a11y-contrast-dark .dif-card h4, .a11y-contrast-dark .dif-card p, .a11y-contrast-dark .curr-block h3, .a11y-contrast-dark .curr-block p { color: #ffd400 !important; }
+  .a11y-contrast-dark .servico-card svg, .a11y-contrast-dark .dif-card svg, .a11y-contrast-dark .curr-block svg { stroke: #fff !important; fill: none !important; }
+  .a11y-contrast-dark .info-item .ico { background: #111 !important; }
+  .a11y-contrast-dark .info-item .details strong, .a11y-contrast-dark .info-item .details span { color: #ffd400 !important; }
+
+  /* Light contrast mode: enforce high contrast light theme */
+  .a11y-contrast-light, .a11y-contrast-light body, .a11y-contrast-light html { background: #ffffff !important; color: #0b0b0b !important; }
+  .a11y-contrast-light nav, .a11y-contrast-light footer, .a11y-contrast-light section, .a11y-contrast-light header { background: #ffffff !important; color: #0b0b0b !important; }
+  .a11y-contrast-light a { color: #0b0b0b !important; text-decoration: underline !important; }
+  .a11y-contrast-light .btn-primary { background: #0b0b0b !important; color: #fff !important; }
+  .a11y-contrast-light .btn-outline { border-color: #0b0b0b !important; color: #0b0b0b !important; }
+  .a11y-contrast-light input, .a11y-contrast-light textarea, .a11y-contrast-light select { background: #fff !important; color: #0b0b0b !important; border-color: #999 !important; }
+  .a11y-contrast-light .nav-links a { color: #0b0b0b !important; }
+  .a11y-contrast-light .logo-mark, .a11y-contrast-light .logo-sub { color: #0b0b0b !important; }
+  .a11y-contrast-light .section-title, .a11y-contrast-light .section-tag, .a11y-contrast-light h1, .a11y-contrast-light h2, .a11y-contrast-light h3, .a11y-contrast-light p, .a11y-contrast-light label { color: #0b0b0b !important; }
+  .a11y-contrast-light .hero-sub, .a11y-contrast-light .hero-title { color: #0b0b0b !important; }
+  .a11y-contrast-light .hero-title em { color: #0b0b0b !important; }
+  .a11y-contrast-light .footer-logo, .a11y-contrast-light .footer-logo span { color: #0b0b0b !important; }
+  .a11y-contrast-light .nav-cta { background: transparent !important; border: 2px solid #0b0b0b !important; color: #0b0b0b !important; }
+  .a11y-contrast-light .nav-cta:hover { background: rgba(0,0,0,0.06) !important; }
+  .a11y-contrast-light .contato-form .form-row label, .a11y-contrast-light .curr-form .form-row label { color: #0b0b0b !important; }
+  .a11y-contrast-light .info-item .details strong, .a11y-contrast-light .info-item .details span { color: #0b0b0b !important; }
+  .a11y-contrast-light .info-item .ico { background: #000 !important; }
+  .a11y-contrast-light .info-item .ico svg { stroke: #fff !important; }
+  .a11y-contrast-light .sobre-visual { background: #000 !important; color: #fff !important; }
+  .a11y-contrast-light .sobre-visual::before { background: transparent !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat { background: #111 !important; border-color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat .num { color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat .lbl { color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-features li::before { background: #fff !important; }
+  .a11y-contrast-light .servico-card .serv-icon, .a11y-contrast-light .dif-card .dif-icon { background: #000 !important; }
+  .a11y-contrast-light .servico-card .serv-icon svg, .a11y-contrast-light .dif-card .dif-icon svg { stroke: #fff !important; fill: #fff !important; }
+
+  .a11y-highlight-links a, .a11y-highlight-links .btn-primary, .a11y-highlight-links .btn-outline, .a11y-highlight-links button[type=submit], .a11y-highlight-links .nav-links a, .a11y-highlight-links .nav-cta, .a11y-highlight-links .hero-actions a {
+    outline: 3px solid #ffd400 !important;
+    background: rgba(0,0,0,0.85) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+
+  .a11y-highlight-links a { background: rgba(0,0,0,0.85); padding: 2px 4px; border-radius: 3px; }
+  .a11y-highlight-links .btn-primary, .a11y-highlight-links button[type=submit] { box-shadow: 0 0 0 3px rgba(255,212,64,0.12) inset; }
+
+  /* Panel header */
+  .a11y-panel-header { padding: 10px 12px; font-weight:700; text-align:center; border-bottom:1px solid rgba(0,0,0,0.06); background: #f7f7f7; }
+
+</style>
 </head>
 <body>
+
+<style>
+  /* A11Y panel card styles */
+  #a11y-panel { width: 320px; }
+  .a11y-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+  .a11y-card { background: #fff; border: 2px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 18px 14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; cursor:pointer; text-align:center; transition: all 0.2s; }
+  .a11y-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.12); transform: translateY(-2px); }
+  .a11y-card:focus { outline: 3px solid #0066cc; box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
+  .a11y-card img { width: 32px; height: 32px; object-fit: contain; display:block; margin:0 auto; }
+  .a11y-icon { width: 56px; height: 56px; display:flex; align-items:center; justify-content:center; border-radius: 14px; background: #000; }
+  .a11y-icon img { filter: invert(1) brightness(1.1); }
+  .a11y-label { font-size: 0.9rem; font-weight:600; text-align:center; color: #000; }
+  #a11y-close { width: 100%; margin: 0 auto; display: block; padding: 10px 16px; text-align: center; }
+  #a11y-toggle { padding:6px; }
+</style>
 
 <!-- NAVBAR -->
 <nav>
@@ -813,15 +932,6 @@
       <h3>Envie seu Currículo</h3>
       <p>A DC Transportes está sempre em busca de profissionais comprometidos, proativos e com perfil voltado para resultados. Envie seu currículo e faça parte da nossa equipe!</p>
       <p>Atendemos motoristas, ajudantes, administrativo e todas as áreas de logística e transporte.</p>
-      <div class="vaga-card">
-        <strong>VAGAS ABERTAS</strong>
-        <ul>
-          <li>Motorista Carreteiro – CNH E</li>
-          <li>Ajudante de Carga/Descarga</li>
-          <li>Auxiliar Administrativo</li>
-          <li>Conferente Logístico</li>
-        </ul>
-      </div>
       <form class="curr-form" action="https://formsubmit.co/dctrasnsportes@gmail.com" method="POST" target="_blank">
         <input type="hidden" name="_subject" value="Novo currículo - DC Transportes">
         <input type="hidden" name="_captcha" value="false">
@@ -990,7 +1100,10 @@
           </div>
           <div class="details">
             <strong>Localização</strong>
-            <span>Rua Rogassiano Francisco Coelho, n° 220, Nova Varginha, Varginha - MG, Brasil.</span>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+              <span id="address-text">Rua Rogassiano Francisco Coelho, n° 220, Nova Varginha, Varginha - MG, Brasil.</span>
+              <a class="btn-primary" id="open-maps" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Rogassiano+Francisco+Coelho+220+Nova+Varginha+Varginha+MG+Brasil" target="_blank" style="padding:8px 12px;font-size:0.85rem;">Abrir no Maps</a>
+            </div>
           </div>
         </div>
         <div class="info-item">
@@ -1012,11 +1125,42 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo"><span>DC</span> TRANSPORTES</div>
-  <p>© 2025 DC Transportes. Todos os direitos reservados.</p>
+  <p>© 2026 DC Transportes. Todos os direitos reservados.</p>
 </footer>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- A11Y WIDGET -->
+<div id="a11y-widget" aria-hidden="false">
+  <button id="a11y-toggle" aria-haspopup="dialog" aria-expanded="false" title="Acessibilidade">
+    <img src="img/acessibilidade.png" alt="Acessibilidade" style="width:36px;height:36px;object-fit:contain;">
+  </button>
+  <div id="a11y-panel" role="dialog" aria-label="Ferramentas de Acessibilidade" aria-hidden="true">
+      <div class="a11y-panel-header">Acessibilidade</div>
+      <div class="a11y-grid" role="list">
+      <button class="a11y-card" data-action="tts" aria-label="Leitor de texto">
+        <div class="a11y-icon"><img src="img/autofalante.png" alt="Leitor de texto"></div>
+        <div class="a11y-label">Leitor de texto</div>
+      </button>
+      <button class="a11y-card" data-action="contrast-dark" aria-label="Alto contraste escuro">
+        <div class="a11y-icon"><img src="img/altocontrasteescuro.png" alt="Alto contraste escuro"></div>
+        <div class="a11y-label">Alto contraste escuro</div>
+      </button>
+      <button class="a11y-card" data-action="contrast-light" aria-label="Alto contraste claro">
+        <div class="a11y-icon"><img src="img/altocontrasteclaro.png" alt="Alto contraste claro"></div>
+        <div class="a11y-label">Alto contraste claro</div>
+      </button>
+      <button class="a11y-card" data-action="highlight-links" aria-label="Destacar links">
+        <div class="a11y-icon"><img src="img/destacarlink.png" alt="Destacar links"></div>
+        <div class="a11y-label">Destacar links</div>
+      </button>
+    </div>
+    <div style="padding:8px; text-align:center; border-top:1px solid rgba(0,0,0,0.06); background:transparent;">
+      <button id="a11y-close" style="padding:8px 12px;border-radius:6px;border:1px solid rgba(0,0,0,0.08);background:#fff;cursor:pointer;">Fechar</button>
+    </div>
+  </div>
+</div>
 
 <script>
   function showToast(msg) {
@@ -1037,6 +1181,111 @@
   function enviarContato() {
     showToast('✅ Mensagem enviada! Responderemos em breve.');
   }
+
+  // Accessibility widget behavior (enhanced)
+  (function(){
+    const aToggle = document.getElementById('a11y-toggle');
+    const aPanel = document.getElementById('a11y-panel');
+    const aClose = document.getElementById('a11y-close');
+    const body = document.body;
+    const cards = Array.from(document.querySelectorAll('.a11y-card'));
+    let speaking = false;
+    let ttsActive = false;
+    let currentMode = null; // 'contrast-dark' | 'contrast-light' | 'highlight-links' | null
+
+    function setMode(mode) {
+      // toggle off if same mode clicked
+      if (currentMode === mode) {
+        body.classList.remove('a11y-contrast-dark','a11y-contrast-light','a11y-highlight-links');
+        currentMode = null;
+        showToast('Modo de acessibilidade desativado');
+        return;
+      }
+      body.classList.remove('a11y-contrast-dark','a11y-contrast-light','a11y-highlight-links');
+      if (mode === 'contrast-dark') body.classList.add('a11y-contrast-dark');
+      if (mode === 'contrast-light') body.classList.add('a11y-contrast-light');
+      if (mode === 'highlight-links') body.classList.add('a11y-highlight-links');
+      currentMode = mode;
+      if (mode === 'contrast-dark') showToast('Alto contraste escuro ativado');
+      if (mode === 'contrast-light') showToast('Alto contraste claro ativado');
+      if (mode === 'highlight-links') showToast('Links destacados');
+    }
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) { showToast('Leitor de tela não suportado neste navegador'); return; }
+      window.speechSynthesis.cancel();
+      const txt = (text||'').replace(/\s+/g,' ').trim().slice(0,600);
+      if (!txt) return;
+      const utter = new SpeechSynthesisUtterance(txt);
+      utter.lang = 'pt-BR'; utter.rate = 1.0;
+      window.speechSynthesis.speak(utter); speaking = true;
+      utter.onend = () => { speaking = false; };
+    }
+
+    // hover-to-speak implementation
+    let lastReadKey = null;
+    function onDocMouseOver(e) {
+      if (!ttsActive) return;
+      const el = e.target;
+      if (!el) return;
+      // find nearest readable ancestor
+      const closest = el.closest('p,h1,h2,h3,h4,li,a,label,button,span,div');
+      if (!closest) return;
+      const text = closest.innerText || closest.textContent || '';
+      if (!text) return;
+      const key = text.trim().slice(0,80);
+      if (key === lastReadKey) return;
+      lastReadKey = key;
+      speakText(text);
+    }
+
+    function enableHoverTTS() {
+      if (ttsActive) return; ttsActive = true;
+      document.addEventListener('mouseover', onDocMouseOver);
+      showToast('Leitor por movimento ativado: passe o mouse sobre o texto');
+    }
+
+    function disableHoverTTS() {
+      if (!ttsActive) return; ttsActive = false;
+      window.speechSynthesis.cancel(); lastReadKey = null;
+      document.removeEventListener('mouseover', onDocMouseOver);
+      showToast('Leitor desativado');
+    }
+
+    function openPanel() { aPanel.classList.add('show'); aPanel.setAttribute('aria-hidden','false'); aToggle.setAttribute('aria-expanded','true'); cards[0]?.focus(); }
+    function closePanel() { aPanel.classList.remove('show'); aPanel.setAttribute('aria-hidden','true'); aToggle.setAttribute('aria-expanded','false'); aToggle.focus(); }
+
+    aToggle.addEventListener('click', (e) => { e.stopPropagation(); if (aPanel.classList.contains('show')) closePanel(); else openPanel(); });
+    aClose.addEventListener('click', closePanel);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePanel();
+      if (e.key === 'Tab' && aPanel.classList.contains('show')) {
+        const focusable = Array.from(aPanel.querySelectorAll('button'));
+        if (!focusable.length) return;
+        const idx = focusable.indexOf(document.activeElement);
+        if (e.shiftKey && idx === 0) { focusable[focusable.length-1].focus(); e.preventDefault(); }
+        else if (!e.shiftKey && idx === focusable.length-1) { focusable[0].focus(); e.preventDefault(); }
+      }
+    });
+
+    document.addEventListener('click', (e) => { if (!aPanel.contains(e.target) && e.target !== aToggle) closePanel(); });
+
+    aPanel.addEventListener('click', (e) => {
+      const btn = e.target.closest('.a11y-card');
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      if (!action) return;
+      if (action === 'tts') {
+        if (ttsActive) disableHoverTTS(); else enableHoverTTS();
+      } else {
+        setMode(action);
+      }
+    });
+
+    // keyboard activation on cards
+    cards.forEach(c => { c.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }); });
+  })();
 </script>
 
 </body>
