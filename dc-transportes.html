@@ -580,6 +580,17 @@
 
   .mt-3 { margin-top: 3rem; }
 
+  /* ===== FORM STYLES ===== */
+  .form-row { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  .form-row label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
+  .form-row input, .form-row textarea, .form-row select { 
+    pointer-events: auto !important; 
+    cursor: text; 
+    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: 5px;
+  }
+
   /* ===== TOAST ===== */
   .toast {
     position: fixed; bottom: 30px; right: 30px;
@@ -650,7 +661,8 @@
   .a11y-contrast-dark a { color: #ffd400 !important; }
   .a11y-contrast-dark .btn-primary { background: #ffd400 !important; color: #000 !important; border-color: #ffd400 !important; }
   .a11y-contrast-dark .btn-outline { border-color: #ffd400 !important; color: #ffd400 !important; }
-  .a11y-contrast-dark input, .a11y-contrast-dark textarea, .a11y-contrast-dark select { background: #111 !important; color: #ffd400 !important; border-color: #333 !important; }
+  .a11y-contrast-dark input, .a11y-contrast-dark textarea, .a11y-contrast-dark select { background: #111 !important; color: #ffd400 !important; border-color: #333 !important; pointer-events: auto !important; }
+  .a11y-contrast-dark input:focus, .a11y-contrast-dark textarea:focus, .a11y-contrast-dark select:focus { outline: 2px solid #ffd400; }
   .a11y-contrast-dark .footer-logo span { color: #ffd400 !important; }
   .a11y-contrast-dark .nav-links a { color: #ffd400 !important; }
   .a11y-contrast-dark .logo-mark, .a11y-contrast-dark .logo-sub { color: #ffd400 !important; }
@@ -676,7 +688,8 @@
   .a11y-contrast-light a { color: #0b0b0b !important; text-decoration: underline !important; }
   .a11y-contrast-light .btn-primary { background: #0b0b0b !important; color: #fff !important; }
   .a11y-contrast-light .btn-outline { border-color: #0b0b0b !important; color: #0b0b0b !important; }
-  .a11y-contrast-light input, .a11y-contrast-light textarea, .a11y-contrast-light select { background: #fff !important; color: #0b0b0b !important; border-color: #999 !important; }
+  .a11y-contrast-light input, .a11y-contrast-light textarea, .a11y-contrast-light select { background: #fff !important; color: #0b0b0b !important; border-color: #999 !important; pointer-events: auto !important; }
+  .a11y-contrast-light input:focus, .a11y-contrast-light textarea:focus, .a11y-contrast-light select:focus { outline: 2px solid #0b0b0b; }
   .a11y-contrast-light .nav-links a { color: #0b0b0b !important; }
   .a11y-contrast-light .logo-mark, .a11y-contrast-light .logo-sub { color: #0b0b0b !important; }
   .a11y-contrast-light .section-title, .a11y-contrast-light .section-tag, .a11y-contrast-light h1, .a11y-contrast-light h2, .a11y-contrast-light h3, .a11y-contrast-light p, .a11y-contrast-light label { color: #0b0b0b !important; }
@@ -1228,9 +1241,13 @@
       if (!ttsActive) return;
       const el = e.target;
       if (!el) return;
+      // Skip form inputs to avoid interference
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') return;
       // find nearest readable ancestor
       const closest = el.closest('p,h1,h2,h3,h4,li,a,label,button,span,div');
       if (!closest) return;
+      // Don't read from inside form fields
+      if (closest.querySelector('input') || closest.querySelector('textarea') || closest.querySelector('select')) return;
       const text = closest.innerText || closest.textContent || '';
       if (!text) return;
       const key = text.trim().slice(0,80);
@@ -1269,7 +1286,11 @@
       }
     });
 
-    document.addEventListener('click', (e) => { if (!aPanel.contains(e.target) && e.target !== aToggle) closePanel(); });
+    document.addEventListener('click', (e) => { 
+      // Don't close panel if clicking on form inputs
+      const isFormElement = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT';
+      if (!isFormElement && !aPanel.contains(e.target) && e.target !== aToggle) closePanel(); 
+    });
 
     aPanel.addEventListener('click', (e) => {
       const btn = e.target.closest('.a11y-card');
@@ -1285,6 +1306,14 @@
 
     // keyboard activation on cards
     cards.forEach(c => { c.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }); });
+
+    // Prevent event propagation on form inputs
+    const allInputs = document.querySelectorAll('input, textarea, select');
+    allInputs.forEach(input => {
+      input.addEventListener('click', (e) => { e.stopPropagation(); }, false);
+      input.addEventListener('mousedown', (e) => { e.stopPropagation(); }, false);
+      input.addEventListener('mouseup', (e) => { e.stopPropagation(); }, false);
+    });
   })();
 </script>
 
