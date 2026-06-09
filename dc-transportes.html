@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Transportes – Transporte de Qualidade</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b4b;
+    --navy-light: #162566;
+    --red: #e8001d;
+    --red-dark: #b80017;
+    --white: #ffffff;
+    --gray: #f4f6fb;
+    --gray-mid: #dde3f0;
+    --text: #1a1a2e;
+    --text-muted: #5a6080;
+    --globe: #b8cce8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo-img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .logo-mark {
+    display: flex; align-items: center; gap: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2rem; line-height: 1;
+    color: var(--white);
+  }
+
+  .logo-mark span { color: var(--red); }
+
+  .logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; font-weight: 600;
+    color: var(--globe); letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block; margin-top: -2px;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--gray-mid);
+    text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: color .2s;
+  }
+
+  .nav-links a:hover { color: var(--red); }
+
+  .nav-cta {
+    background: var(--red);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 700 !important;
+    transition: background .2s !important;
+  }
+
+  .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 80px 5% 0;
+  }
+
+  .hero-globe {
+    position: absolute;
+    right: -6%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 620px; height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #c5d8ef, #7da8d0 40%, #2e5b8a 80%, #0d1b4b);
+    opacity: 0.18;
+  }
+
+  .hero-globe::after {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='620' height='620'%3E%3Cellipse cx='200' cy='180' rx='120' ry='80' fill='none' stroke='%23ffffff' stroke-width='1.2' opacity='0.3'/%3E%3Cellipse cx='370' cy='320' rx='90' ry='60' fill='none' stroke='%23ffffff' stroke-width='1.2' opacity='0.3'/%3E%3Cline x1='0' y1='310' x2='620' y2='310' stroke='%23ffffff' stroke-width='1' opacity='0.2'/%3E%3Cline x1='0' y1='200' x2='620' y2='200' stroke='%23ffffff' stroke-width='0.7' opacity='0.15'/%3E%3Cline x1='310' y1='0' x2='310' y2='620' stroke='%23ffffff' stroke-width='0.7' opacity='0.15'/%3E%3C/svg%3E") center/cover;
+    pointer-events: none;
+  }
+
+  .hero-truck {
+    position: absolute;
+    right: -100px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+
+  .hero-truck img {
+    width: 800px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+  }
+
+  .arrow-top, .arrow-bot {
+    position: absolute;
+    height: 28px;
+    background: var(--red);
+    left: 0; right: 0;
+    display: flex; align-items: center;
+  }
+
+  .arrow-top { top: 30%; }
+  .arrow-bot { top: calc(30% + 100px); }
+
+  .arrow-top::after {
+    content: '';
+    position: absolute; left: 8%;
+    border: 14px solid transparent;
+    border-right-color: var(--red);
+    left: 0; margin-left: -27px;
+  }
+
+  .arrow-bot::after {
+    content: '';
+    position: absolute; right: 8%;
+    border: 14px solid transparent;
+    border-left-color: var(--red);
+    right: 0; margin-right: -27px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 620px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.75rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 14px; border-radius: 2px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    color: var(--white);
+    text-transform: uppercase;
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+
+  .hero-title em {
+    font-style: normal; color: var(--red);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    color: var(--globe);
+    font-size: 1.05rem; font-weight: 300;
+    line-height: 1.6; max-width: 480px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 2.5rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.45s ease both;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    border: none; cursor: pointer; border-radius: 4px;
+    text-decoration: none; display: inline-block;
+    transition: background .2s, transform .1s;
+  }
+
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 13px 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    border: 2px solid rgba(255,255,255,0.35); cursor: pointer; border-radius: 4px;
+    text-decoration: none; display: inline-block;
+    transition: border-color .2s, color .2s;
+  }
+
+  .btn-outline:hover { border-color: var(--white); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    animation: fadeUp 0.6s 0.6s ease both;
+  }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2.2rem;
+    color: var(--white); line-height: 1;
+  }
+
+  .stat-num span { color: var(--red); }
+
+  .stat-label {
+    font-size: 0.75rem; color: var(--globe);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* ===== SECTION BASE ===== */
+  section { padding: 90px 5%; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.75rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(2rem, 4vw, 3.2rem);
+    text-transform: uppercase; line-height: 1;
+    color: var(--navy);
+  }
+
+  .section-title.light { color: var(--white); }
+
+  /* ===== SOBRE ===== */
+  #sobre { background: var(--gray); }
+
+  .sobre-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+    margin-top: 3rem;
+  }
+
+  .sobre-text p {
+    color: var(--text-muted); line-height: 1.8;
+    font-size: 1rem; margin-bottom: 1rem;
+  }
+
+  .sobre-features {
+    list-style: none; margin-top: 1.5rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+
+  .sobre-features li {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    color: var(--text); font-size: 0.95rem;
+  }
+
+  .sobre-features li::before {
+    content: '';
+    width: 22px; height: 22px; flex-shrink: 0;
+    background: var(--red);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    margin-top: 1px;
+  }
+
+  .sobre-visual {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 3rem;
+    position: relative; overflow: hidden;
+  }
+
+  .sobre-visual::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,0,29,0.15), transparent 70%);
+  }
+
+  .sobre-stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+
+  .sobre-stat {
+    text-align: center; padding: 1.5rem 1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+  }
+
+  .sobre-stat .num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2.5rem;
+    color: var(--red);
+  }
+
+  .sobre-stat .lbl {
+    font-size: 0.8rem; color: var(--globe);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* ===== SERVIÇOS ===== */
+  #servicos { background: var(--white); }
+
+  .servicos-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  .servico-card {
+    background: var(--gray);
+    border-radius: 8px; padding: 2.5rem 2rem;
+    border-top: 4px solid transparent;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+    position: relative; overflow: hidden;
+  }
+
+  .servico-card:hover {
+    border-color: var(--red);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(232,0,29,0.1);
+  }
+
+  .serv-icon {
+    width: 52px; height: 52px;
+    background: var(--navy);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .serv-icon svg { fill: var(--white); width: 26px; }
+
+  .servico-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 1.25rem;
+    text-transform: uppercase; color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+
+  .servico-card p {
+    color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;
+  }
+
+  /* ===== DIFERENCIAIS ===== */
+  #diferenciais { background: var(--gray); }
+
+  .dif-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  .dif-card {
+    background: var(--white);
+    border-radius: 8px; padding: 2rem 1.5rem;
+    text-align: center;
+    transition: box-shadow .2s;
+  }
+
+  .dif-card:hover { box-shadow: 0 8px 30px rgba(13,27,75,0.1); }
+
+  .dif-icon {
+    width: 56px; height: 56px;
+    background: rgba(13,27,75,0.08);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--navy);
+  }
+
+  .dif-card h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    text-transform: uppercase; color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .dif-card p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; }
+
+  /* ===== CURRICULO ===== */
+  #curriculo { background: var(--white); }
+
+  .curr-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start; margin-top: 3rem;
+  }
+
+  .curr-block {
+    background: var(--gray);
+    border-radius: 10px; padding: 2.5rem;
+  }
+
+  .curr-block h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.8rem;
+    text-transform: uppercase; color: var(--navy);
+    margin-bottom: 1rem;
+  }
+
+  .curr-block p {
+    color: var(--text-muted); font-size: 1rem;
+    line-height: 1.7; margin-bottom: 1rem;
+  }
+
+  .vaga-card {
+    margin-top: 2rem; background: var(--white);
+    border-radius: 8px; padding: 1.5rem;
+    border-left: 4px solid var(--red);
+  }
+
+  .vaga-card strong {
+    color: var(--navy); font-family:'Barlow Condensed',sans-serif;
+    font-size: 1.05rem;
+  }
+
+  .vaga-card ul {
+    list-style: none; margin-top: 0.75rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+
+  .vaga-card li {
+    color: var(--text-muted); font-size: 0.9rem;
+  }
+
+  .curr-form {
+    margin-top: 1.5rem;
+  }
+
+  .curr-form .form-row input,
+  .curr-form .form-row select,
+  .curr-form .form-row textarea {
+    background: var(--white);
+    border: 1.5px solid var(--gray-mid);
+    color: var(--text);
+  }
+
+  .curr-form .form-row input:focus,
+  .curr-form .form-row select:focus,
+  .curr-form .form-row textarea:focus {
+    border-color: var(--navy); background: var(--white);
+  }
+
+  .curr-form .form-row input::placeholder,
+  .curr-form .form-row textarea::placeholder { color: #aaa; }
+
+  .curr-form .form-row label { color: var(--text-muted); }
+
+  .curr-form .form-row textarea {
+    width: 100%; resize: vertical; min-height: 100px;
+    background: var(--white);
+    border: 1.5px solid var(--gray-mid);
+    border-radius: 5px; padding: 12px 14px;
+    color: var(--text); font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+  }
+
+  .curr-form .form-row select option { background: var(--white); color: var(--text); }
+
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  /* ===== CONTATO ===== */
+  #contato { background: var(--navy); }
+
+  .contato-inner {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 5rem; align-items: start; position: relative; z-index: 1;
+  }
+
+  .contato-form .form-row input,
+  .contato-form .form-row textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 5px; padding: 12px 14px;
+    color: var(--white); font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem; width: 100%;
+    transition: border-color .2s;
+  }
+
+  .contato-form .form-row textarea { min-height: 120px; resize: vertical; }
+
+  .contato-form .form-row input:focus,
+  .contato-form .form-row textarea:focus { outline: none; border-color: var(--red); }
+
+  .contato-form .form-row input::placeholder,
+  .contato-form .form-row textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+  .contato-info { padding-top: 4rem; }
+
+  .contato-info p {
+    color: var(--globe); font-size: 1rem;
+    line-height: 1.7; margin-top: 1.25rem; margin-bottom: 2rem;
+  }
+
+  .info-items { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .info-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+
+  .info-item .ico {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(232,0,29,0.15);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .info-item .details { flex: 1; }
+  .info-item .details strong { color: var(--white); font-size: 0.85rem; display: block; margin-bottom: 2px; }
+  .info-item .details span { color: var(--globe); font-size: 0.9rem; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #060d29;
+    padding: 2.5rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.6rem;
+    color: var(--white);
+  }
+
+  .footer-logo span { color: var(--red); }
+
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+
+  /* ===== UTILS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .mt-3 { margin-top: 3rem; }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed; bottom: 30px; right: 30px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 14px 24px;
+    border-left: 4px solid var(--red);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    transform: translateY(100px); opacity: 0;
+    transition: all .3s;
+    z-index: 999;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .sobre-grid, .sim-inner, .curr-inner, .contato-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .servicos-grid { grid-template-columns: 1fr; }
+    .dif-grid { grid-template-columns: 1fr 1fr; }
+    .hero-globe { display: none; }
+    .hero-stats { gap: 2rem; }
+    .form-grid-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="img/logo.png" alt="DC Transportes Logo" class="nav-logo-img">
+    <div>
+      <div class="logo-mark"><span>DC</span> TRANSPORTES</div>
+      <div class="logo-sub">Transporte de Qualidade</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#diferenciais">Diferenciais</a></li>
+    <li><a href="#curriculo">Trabalhe Conosco</a></li>
+    <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-globe"></div>
+  <div class="hero-truck">
+    <img src="img/caminhaocapa.png" alt="Caminhão DC Transportes">
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Transporte de Qualidade</div>
+    <h1 class="hero-title">
+      Sua carga<br>
+      <em>no destino certo</em>
+    </h1>
+    <p class="hero-sub">
+      A DC Transportes une tecnologia e compromisso para levar sua carga com segurança, agilidade e transparência para qualquer destino.
+    </p>
+    <div class="hero-actions">
+      <a href="#sobre" class="btn-primary">Conheça a DC</a>
+    </div>
+    <div class="hero-stats">
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="section-tag">Quem Somos</div>
+  <h2 class="section-title">Sobre a DC Transportes</h2>
+  <div class="sobre-grid">
+    <div class="sobre-text">
+      <p>A <strong>DC Transportes</strong> nasceu com o propósito de oferecer soluções de transporte de carga com eficiência, segurança e atendimento personalizado. Atuamos também na área de Recursos Humanos, conectando profissionais qualificados às melhores oportunidades.</p>
+      <p>Nosso compromisso é ser o parceiro ideal tanto para empresas que precisam transportar mercadorias quanto para profissionais que buscam crescer no setor.</p>
+      <ul class="sobre-features">
+        <li>Frota própria</li>
+        <li>Equipe comprometida</li>
+        <li>Cobertura regional e nacional</li>
+        <li>Atendimento via WhatsApp e telefone</li>
+      </ul>
+    </div>
+    <div class="sobre-visual">
+      <div class="sobre-stat-grid">
+        <div class="sobre-stat">
+          <div class="num">6+</div>
+          <div class="lbl">Anos de Experiência</div>
+        </div>
+        <div class="sobre-stat">
+          <div class="num">70+</div>
+          <div class="lbl">Clientes Ativos</div>
+        </div>
+        <div class="sobre-stat">
+          <div class="num">50+</div>
+          <div class="lbl">Cidades Atendidas</div>
+        </div>
+        <div class="sobre-stat">
+          <div class="num">Atendimento</div>
+          <div class="lbl">de Qualidade</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="section-tag">O que Fazemos</div>
+  <h2 class="section-title">Nossos Serviços</h2>
+  <div class="servicos-grid">
+
+    <div class="servico-card">
+      <div class="serv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+      </div>
+      <h3>Transporte de Carga</h3>
+      <p>Transporte seguro e ágil de cargas fracionadas ou lotação completa, com rastreamento em tempo real e entrega garantida no prazo.</p>
+    </div>
+
+    <div class="servico-card">
+      <div class="serv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <h3>Logística Integrada</h3>
+      <p>Planejamento completo da cadeia logística com soluções sob medida para sua empresa, otimizando custos e reduzindo prazos.</p>
+    </div>
+
+    <div class="servico-card">
+      <div class="serv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+      </div>
+      <h3>Recursos Humanos</h3>
+      <p>Recrutamento e seleção de profissionais para o setor de transportes e logística.</p>
+    </div>
+
+    <div class="servico-card">
+      <div class="serv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <h3>Gestão de Documentos</h3>
+      <p>Emissão e gestão de notas fiscais, CTe e documentação de transporte com total conformidade legal e fiscal.</p>
+    </div>
+
+    <div class="servico-card">
+      <div class="serv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <h3>Transporte Especializado</h3>
+      <p>Soluções para cargas especiais, sensíveis ou de alto valor com veículos adaptados e equipe treinada.</p>
+    </div>
+
+    <div class="servico-card">
+      <div class="serv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+      </div>
+      <h3>Atendimento Personalizado</h3>
+      <p>Suporte via WhatsApp, telefone e e-mail para acompanhamento de pedidos, cotações e resolução rápida de demandas.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais">
+  <div class="section-tag">Por que nos escolher</div>
+  <h2 class="section-title">Nossos Diferenciais</h2>
+  <div class="dif-grid">
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <h4>Orçamento Rápido</h4>
+      <p>Resposta em até 30 minutos para solicitações de orçamento durante o horário comercial.</p>
+    </div>
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+        </svg>
+      </div>
+      <h4>Segurança Total</h4>
+      <p>Motoristas treinados para sua tranquilidade.</p>
+    </div>
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </div>
+      <h4>Transparência</h4>
+      <p>Informações claras, sem surpresas.</p>
+    </div>
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <h4>Confiabilidade</h4>
+      <p>Mais de 6 anos entregando resultados. Uma empresa que cumpre o que promete.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CURRÍCULO -->
+<section id="curriculo">
+  <div class="section-tag">Faça Parte do Time</div>
+  <h2 class="section-title">Trabalhe Conosco</h2>
+  <div class="curr-inner">
+    <div class="curr-block">
+      <h3>Envie seu Currículo</h3>
+      <p>A DC Transportes está sempre em busca de profissionais comprometidos, proativos e com perfil voltado para resultados. Envie seu currículo e faça parte da nossa equipe!</p>
+      <p>Atendemos motoristas, ajudantes, administrativo e todas as áreas de logística e transporte.</p>
+      <div class="vaga-card">
+        <strong>VAGAS ABERTAS</strong>
+        <ul>
+          <li>Motorista Carreteiro – CNH E</li>
+          <li>Ajudante de Carga/Descarga</li>
+          <li>Auxiliar Administrativo</li>
+          <li>Conferente Logístico</li>
+        </ul>
+      </div>
+      <form class="curr-form" action="https://formsubmit.co/dctranportes@gmail.com" method="POST" target="_blank">
+        <input type="hidden" name="_subject" value="Novo currículo - DC Transportes">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="form-row">
+          <label>Nome Completo</label>
+          <input type="text" name="nome" placeholder="Seu nome completo">
+        </div>
+        <div class="form-row">
+          <label>Telefone / WhatsApp</label>
+          <input type="tel" name="telefone" placeholder="(00) 00000-0000">
+        </div>
+        <div class="form-row">
+          <label>E-mail</label>
+          <input type="email" name="email" placeholder="seu@email.com">
+        </div>
+        <div class="form-row">
+          <label>Cargo desejado</label>
+          <select name="cargo_desejado">
+            <option value="">Selecione uma vaga</option>
+            <option>Motorista Carreteiro</option>
+            <option>Ajudante de Carga/Descarga</option>
+            <option>Auxiliar Administrativo</option>
+            <option>Conferente Logístico</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>CNH / Categoria</label>
+          <input type="text" name="cnh_categoria" placeholder="Ex: B, C, D, E">
+        </div>
+        <div class="form-row">
+          <label>Experiência</label>
+          <textarea name="experiencia" placeholder="Anos de experiência, funções e áreas de atuação"></textarea>
+        </div>
+        <div class="form-row">
+          <label>Disponibilidade</label>
+          <textarea name="disponibilidade" placeholder="Turno, dias da semana e local de atuação"></textarea>
+        </div>
+        <button class="btn-primary" type="submit" style="width:100%">Enviar Currículo</button>
+      </form>
+    </div>
+    <div class="curr-block">
+      <h3>Seja Nosso Agregado</h3>
+      <p>Cadastre seu caminhão para trabalhar com a gente. Receba propostas de fretes compatíveis com sua rota, veículo e disponibilidade.</p>
+      <form class="curr-form" action="https://formsubmit.co/dctranportes@gmail.com" method="POST" target="_blank">
+        <input type="hidden" name="_subject" value="Cadastro de agregado - DC Transportes">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="form-row">
+          <label>Nome Completo</label>
+          <input type="text" name="nome" placeholder="Seu nome completo">
+        </div>
+        <div class="form-row">
+          <label>Telefone / WhatsApp</label>
+          <input type="tel" name="telefone" placeholder="(00) 00000-0000">
+        </div>
+        <div class="form-row">
+          <label>E-mail</label>
+          <input type="email" name="email" placeholder="seu@email.com">
+        </div>
+        <div class="form-row">
+          <label>Tipo de Veículo</label>
+          <select name="tipo_veiculo">
+            <option value="">Selecione o tipo</option>
+            <option>Caminhão</option>
+            <option>Carreta</option>
+            <option>Truck</option>
+            <option>Vuc</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-row">
+            <label>Placa</label>
+            <input type="text" name="placa" placeholder="AAA0A00">
+          </div>
+          <div class="form-row">
+            <label>Ano / Modelo</label>
+            <input type="text" name="ano_modelo" placeholder="2020 / 2021">
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Tipo de carga</label>
+          <select name="tipo_carga">
+            <option value="">Selecione</option>
+            <option>Carga seca</option>
+            <option>Carga frigorificada</option>
+            <option>Perigosa</option>
+            <option>Container</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Rotas e Regiões</label>
+          <textarea name="rotas_regioes" placeholder="Principais rotas e regiões atendidas"></textarea>
+        </div>
+        <div class="form-row">
+          <label>Disponibilidade</label>
+          <textarea name="disponibilidade" placeholder="Dias da semana e horários disponíveis"></textarea>
+        </div>
+        <button class="btn-primary" type="submit" style="width:100%">Cadastrar Caminhão</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="contato-inner">
+    <div>
+      <div class="section-tag">Fale Conosco</div>
+      <h2 class="section-title light">Entre em<br>Contato</h2>
+      <form class="contato-form" style="margin-top:2rem" action="https://formsubmit.co/dctranportes@gmail.com" method="POST" target="_blank">
+        <input type="hidden" name="_subject" value="Mensagem pelo site - DC Transportes">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="form-row">
+          <label style="color:var(--globe);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Nome</label>
+          <input type="text" name="nome" placeholder="Seu nome">
+        </div>
+        <div class="form-grid-2">
+          <div class="form-row">
+            <label style="color:var(--globe);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;">E-mail</label>
+            <input type="email" name="email" placeholder="seu@email.com">
+          </div>
+          <div class="form-row">
+            <label style="color:var(--globe);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Telefone</label>
+            <input type="tel" name="telefone" placeholder="(00) 00000-0000">
+          </div>
+        </div>
+        <div class="form-row">
+          <label style="color:var(--globe);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Mensagem</label>
+          <textarea name="mensagem" placeholder="Descreva sua necessidade..." style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;padding:12px 14px;color:#fff;font-family:'Barlow',sans-serif;font-size:0.95rem;width:100%;min-height:120px;resize:vertical;transition:border-color .2s"></textarea>
+        </div>
+        <button class="btn-primary" type="submit" style="width:100%">Enviar Mensagem</button>
+      </form>
+    </div>
+    <div class="contato-info">
+      <p>Prefere falar diretamente? Entre em contato por um dos nossos canais. Respondemos rapidamente durante o horário comercial.</p>
+      <div class="info-items">
+        <div class="info-item">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </div>
+          <div class="details">
+            <strong>Telefone / WhatsApp</strong>
+            <span>(35) 9 9999-0000</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="details">
+            <strong>E-mail</strong>
+            <span>dctransportes@gmail.com</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="details">
+            <strong>Localização</strong>
+            <span>Varginha – MG, Brasil</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="details">
+            <strong>Horário de Atendimento</strong>
+            <span>Seg–Sex: 8h–18h | Sáb: 8h–12h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>DC</span> TRANSPORTES</div>
+  <p>© 2025 DC Transportes. Todos os direitos reservados.</p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  function enviarCurriculo() {
+    showToast('✅ Currículo enviado com sucesso! Entraremos em contato.');
+  }
+
+  function enviarAgregado() {
+    showToast('✅ Cadastro enviado! Logo entraremos em contato para alinhar o frete.');
+  }
+
+  function enviarContato() {
+    showToast('✅ Mensagem enviada! Responderemos em breve.');
+  }
+</script>
+
+</body>
+</html>
