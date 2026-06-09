@@ -94,13 +94,45 @@
 
   .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
 
+  .breadcrumb {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    background: rgba(255,255,255,0.96);
+    border-bottom: 1px solid rgba(13,27,75,0.08);
+    padding: 8px 5%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    box-shadow: 0 4px 16px rgba(13,27,75,0.06);
+  }
+
+  .breadcrumb a {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .breadcrumb a:hover { color: var(--red); }
+
+  .breadcrumb-separator { color: var(--red); font-weight: 700; }
+
+  .breadcrumb-current {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
   /* ===== HERO ===== */
   #hero {
     min-height: 100vh;
     background: var(--navy);
     display: flex; align-items: center;
     position: relative; overflow: hidden;
-    padding: 80px 5% 0;
+    padding: 116px 5% 0;
   }
 
   .hero-globe {
@@ -786,6 +818,7 @@
   @media (max-width: 560px) {
     .dif-grid, .cambio-grid { grid-template-columns: 1fr; }
     .cambio-panel { padding: 2rem; }
+    .breadcrumb { font-size: 0.75rem; padding: 7px 5%; }
   }
 </style>
 <style>
@@ -826,7 +859,7 @@
 
   /* Dark contrast mode: enforce on main layout elements */
   .a11y-contrast-dark, .a11y-contrast-dark body, .a11y-contrast-dark html { background: #000 !important; color: #ffd400 !important; }
-  .a11y-contrast-dark nav, .a11y-contrast-dark footer, .a11y-contrast-dark section, .a11y-contrast-dark header { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark nav, .a11y-contrast-dark footer, .a11y-contrast-dark section, .a11y-contrast-dark header, .a11y-contrast-dark .breadcrumb { background: #000 !important; color: #ffd400 !important; }
   .a11y-contrast-dark a { color: #ffd400 !important; }
   .a11y-contrast-dark .btn-primary { background: #ffd400 !important; color: #000 !important; border-color: #ffd400 !important; }
   .a11y-contrast-dark .btn-outline { border-color: #ffd400 !important; color: #ffd400 !important; }
@@ -853,7 +886,7 @@
 
   /* Light contrast mode: enforce high contrast light theme */
   .a11y-contrast-light, .a11y-contrast-light body, .a11y-contrast-light html { background: #ffffff !important; color: #0b0b0b !important; }
-  .a11y-contrast-light nav, .a11y-contrast-light footer, .a11y-contrast-light section, .a11y-contrast-light header { background: #ffffff !important; color: #0b0b0b !important; }
+  .a11y-contrast-light nav, .a11y-contrast-light footer, .a11y-contrast-light section, .a11y-contrast-light header, .a11y-contrast-light .breadcrumb { background: #ffffff !important; color: #0b0b0b !important; }
   .a11y-contrast-light a { color: #0b0b0b !important; text-decoration: underline !important; }
   .a11y-contrast-light .btn-primary { background: #0b0b0b !important; color: #fff !important; }
   .a11y-contrast-light .btn-outline { border-color: #0b0b0b !important; color: #0b0b0b !important; }
@@ -932,6 +965,12 @@
     <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
   </ul>
 </nav>
+
+<div class="breadcrumb" aria-label="Caminho de navegação">
+  <a href="#hero">Início</a>
+  <span class="breadcrumb-separator">/</span>
+  <span class="breadcrumb-current" id="breadcrumb-current">Início</span>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -1399,6 +1438,38 @@
   function enviarContato() {
     showToast('✅ Mensagem enviada! Responderemos em breve.');
   }
+
+  (function(){
+    const breadcrumbCurrent = document.getElementById('breadcrumb-current');
+    const sectionLabels = {
+      hero: 'Início',
+      sobre: 'Sobre',
+      servicos: 'Serviços',
+      diferenciais: 'Diferenciais',
+      cambio: 'Câmbio',
+      curriculo: 'Trabalhe Conosco',
+      contato: 'Fale Conosco'
+    };
+    const sections = Object.keys(sectionLabels)
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!breadcrumbCurrent || !sections.length) return;
+
+    function updateBreadcrumb() {
+      const scrollPosition = window.scrollY + 150;
+      let currentSection = sections[0];
+
+      sections.forEach((section) => {
+        if (section.offsetTop <= scrollPosition) currentSection = section;
+      });
+
+      breadcrumbCurrent.textContent = sectionLabels[currentSection.id] || 'Início';
+    }
+
+    updateBreadcrumb();
+    window.addEventListener('scroll', updateBreadcrumb, { passive: true });
+  })();
 
   (function(){
     const currencies = [
