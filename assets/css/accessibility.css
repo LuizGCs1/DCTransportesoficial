@@ -1,0 +1,120 @@
+﻿/* Accessibility widget styles */
+  #a11y-widget {
+    position: fixed;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  #a11y-toggle {
+    width: 48px; height: 48px; border-radius: 8px;
+    background: var(--navy); color: var(--white);
+    border: none; box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+
+  #a11y-panel {
+    display: none; margin-top: 10px; background: rgba(255,255,255,0.98);
+    border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    overflow: hidden; width: 220px;
+  }
+
+  #a11y-panel.show { display: block; }
+
+  #a11y-panel button { display: block; width: 100%; border: none; background: transparent; padding: 12px 14px; text-align: left; cursor: pointer; font-weight:600; }
+  #a11y-panel button:hover { background: rgba(0,0,0,0.06); }
+
+  /* A11y classes */
+  .a11y-contrast-dark { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark a { color: #fff !important; }
+
+  .a11y-contrast-light { background: #fff !important; color: #000 !important; }
+  .a11y-contrast-light a { color: #0066cc !important; }
+
+  /* Dark contrast mode: enforce on main layout elements */
+  .a11y-contrast-dark, .a11y-contrast-dark body, .a11y-contrast-dark html { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark nav, .a11y-contrast-dark footer, .a11y-contrast-dark section, .a11y-contrast-dark header, .a11y-contrast-dark .breadcrumb { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark a { color: #ffd400 !important; }
+  .a11y-contrast-dark .btn-primary { background: #ffd400 !important; color: #000 !important; border-color: #ffd400 !important; }
+  .a11y-contrast-dark .btn-outline { border-color: #ffd400 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark input, .a11y-contrast-dark textarea, .a11y-contrast-dark select { background: #111 !important; color: #ffd400 !important; border-color: #333 !important; pointer-events: auto !important; }
+  .a11y-contrast-dark input:focus, .a11y-contrast-dark textarea:focus, .a11y-contrast-dark select:focus { outline: 2px solid #ffd400; }
+  .a11y-contrast-dark .footer-logo span { color: #ffd400 !important; }
+  .a11y-contrast-dark .nav-links a { color: #ffd400 !important; }
+  .a11y-contrast-dark .logo-mark, .a11y-contrast-dark .logo-sub { color: #ffd400 !important; }
+  .a11y-contrast-dark .section-title, .a11y-contrast-dark .section-tag, .a11y-contrast-dark h1, .a11y-contrast-dark h2, .a11y-contrast-dark h3, .a11y-contrast-dark p, .a11y-contrast-dark label { color: #ffd400 !important; }
+  .a11y-contrast-dark .hero-sub, .a11y-contrast-dark .hero-title { color: #ffd400 !important; }
+  .a11y-contrast-dark .contato-form .form-row label, .a11y-contrast-dark .curr-form .form-row label { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-features li { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-features li::before { background: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-visual { background: #000 !important; border: 2px solid #ffd400 !important; }
+  .a11y-contrast-dark .sobre-visual::before { background: transparent !important; }
+  .a11y-contrast-dark .sobre-stat { background: #000 !important; border-color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-stat .num { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-stat .lbl { color: #ffd400 !important; }
+  .a11y-contrast-dark .servico-card, .a11y-contrast-dark .dif-card, .a11y-contrast-dark .curr-block, .a11y-contrast-dark .cambio-panel, .a11y-contrast-dark .cambio-card, .a11y-contrast-dark .cambio-result { background: #000 !important; border: 2px solid #ffd400 !important; }
+  .a11y-contrast-dark .servico-card h3, .a11y-contrast-dark .servico-card p, .a11y-contrast-dark .dif-card h4, .a11y-contrast-dark .dif-card p, .a11y-contrast-dark .curr-block h3, .a11y-contrast-dark .curr-block p, .a11y-contrast-dark .cambio-card strong, .a11y-contrast-dark .cambio-card span, .a11y-contrast-dark .cambio-card .pais, .a11y-contrast-dark .cambio-result strong, .a11y-contrast-dark .cambio-result small, .a11y-contrast-dark .cambio-status { color: #ffd400 !important; }
+  .a11y-contrast-dark .servico-card svg, .a11y-contrast-dark .dif-card svg, .a11y-contrast-dark .curr-block svg { stroke: #fff !important; fill: none !important; }
+  .a11y-contrast-dark .info-item .ico { background: #111 !important; }
+  .a11y-contrast-dark .info-item .details strong, .a11y-contrast-dark .info-item .details span { color: #ffd400 !important; }
+
+  /* Light contrast mode: enforce high contrast light theme */
+  .a11y-contrast-light, .a11y-contrast-light body, .a11y-contrast-light html { background: #ffffff !important; color: #0b0b0b !important; }
+  .a11y-contrast-light nav, .a11y-contrast-light footer, .a11y-contrast-light section, .a11y-contrast-light header, .a11y-contrast-light .breadcrumb { background: #ffffff !important; color: #0b0b0b !important; }
+  .a11y-contrast-light a { color: #0b0b0b !important; text-decoration: underline !important; }
+  .a11y-contrast-light .btn-primary { background: #0b0b0b !important; color: #fff !important; }
+  .a11y-contrast-light .btn-outline { border-color: #0b0b0b !important; color: #0b0b0b !important; }
+  .a11y-contrast-light input, .a11y-contrast-light textarea, .a11y-contrast-light select { background: #fff !important; color: #0b0b0b !important; border-color: #999 !important; pointer-events: auto !important; }
+  .a11y-contrast-light input:focus, .a11y-contrast-light textarea:focus, .a11y-contrast-light select:focus { outline: 2px solid #0b0b0b; }
+  .a11y-contrast-light .nav-links a { color: #0b0b0b !important; }
+  .a11y-contrast-light .logo-mark, .a11y-contrast-light .logo-sub { color: #0b0b0b !important; }
+  .a11y-contrast-light .section-title, .a11y-contrast-light .section-tag, .a11y-contrast-light h1, .a11y-contrast-light h2, .a11y-contrast-light h3, .a11y-contrast-light p, .a11y-contrast-light label { color: #0b0b0b !important; }
+  .a11y-contrast-light .hero-sub, .a11y-contrast-light .hero-title { color: #0b0b0b !important; }
+  .a11y-contrast-light .hero-title em { color: #0b0b0b !important; }
+  .a11y-contrast-light .footer-logo, .a11y-contrast-light .footer-logo span { color: #0b0b0b !important; }
+  .a11y-contrast-light .nav-cta { background: transparent !important; border: 2px solid #0b0b0b !important; color: #0b0b0b !important; }
+  .a11y-contrast-light .nav-cta:hover { background: rgba(0,0,0,0.06) !important; }
+  .a11y-contrast-light .contato-form .form-row label, .a11y-contrast-light .curr-form .form-row label { color: #0b0b0b !important; }
+  .a11y-contrast-light .info-item .details strong, .a11y-contrast-light .info-item .details span { color: #0b0b0b !important; }
+  .a11y-contrast-light .info-item .ico { background: #000 !important; }
+  .a11y-contrast-light .info-item .ico svg { stroke: #fff !important; }
+  .a11y-contrast-light .sobre-visual { background: #000 !important; color: #fff !important; }
+  .a11y-contrast-light .sobre-visual::before { background: transparent !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat { background: #111 !important; border-color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat .num { color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat .lbl { color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-features li::before { background: #fff !important; }
+  .a11y-contrast-light .servico-card .serv-icon, .a11y-contrast-light .dif-card .dif-icon { background: #000 !important; }
+  .a11y-contrast-light .servico-card .serv-icon svg, .a11y-contrast-light .dif-card .dif-icon svg { stroke: #fff !important; fill: #fff !important; }
+  .a11y-contrast-light .cambio-panel, .a11y-contrast-light .cambio-card, .a11y-contrast-light .cambio-result { background: #fff !important; border: 2px solid #0b0b0b !important; }
+  .a11y-contrast-light .cambio-card strong, .a11y-contrast-light .cambio-card span, .a11y-contrast-light .cambio-card .pais, .a11y-contrast-light .cambio-result strong, .a11y-contrast-light .cambio-result small, .a11y-contrast-light .cambio-status { color: #0b0b0b !important; }
+
+  .a11y-highlight-links a, .a11y-highlight-links .btn-primary, .a11y-highlight-links .btn-outline, .a11y-highlight-links button[type=submit], .a11y-highlight-links .nav-links a, .a11y-highlight-links .nav-cta, .a11y-highlight-links .hero-actions a {
+    outline: 3px solid #ffd400 !important;
+    background: rgba(0,0,0,0.85) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+
+  .a11y-highlight-links a { background: rgba(0,0,0,0.85); padding: 2px 4px; border-radius: 3px; }
+  .a11y-highlight-links .btn-primary, .a11y-highlight-links button[type=submit] { box-shadow: 0 0 0 3px rgba(255,212,64,0.12) inset; }
+
+  /* Panel header */
+  .a11y-panel-header { padding: 10px 12px; font-weight:700; text-align:center; border-bottom:1px solid rgba(0,0,0,0.06); background: #f7f7f7; }
+
+/* A11Y panel card styles */
+  #a11y-panel { width: 320px; }
+  .a11y-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+  .a11y-card { background: #fff; border: 2px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 18px 14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; cursor:pointer; text-align:center; transition: all 0.2s; }
+  .a11y-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.12); transform: translateY(-2px); }
+  .a11y-card:focus { outline: 3px solid #0066cc; box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
+  .a11y-card img { width: 32px; height: 32px; object-fit: contain; display:block; margin:0 auto; }
+  .a11y-icon { width: 56px; height: 56px; display:flex; align-items:center; justify-content:center; border-radius: 14px; background: #000; }
+  .a11y-icon img { filter: invert(1) brightness(1.1); }
+  .a11y-label { font-size: 0.9rem; font-weight:600; text-align:center; color: #000; }
+  #a11y-close { width: 100%; margin: 0 auto; display: block; padding: 10px 16px; text-align: center; }
+  #a11y-toggle { padding:6px; }
+
+
