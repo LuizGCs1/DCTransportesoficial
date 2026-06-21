@@ -23,6 +23,10 @@
 
   html { scroll-behavior: smooth; }
 
+  section { scroll-margin-top: 104px; }
+
+  img, svg, video { max-width: 100%; }
+
   body {
     font-family: 'Barlow', sans-serif;
     color: var(--text);
@@ -82,6 +86,39 @@
   }
 
   .nav-links a:hover { color: var(--red); }
+
+  .mobile-menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 999px;
+    transition: transform .2s, opacity .2s;
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+
+  .mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
 
   .nav-cta {
     background: var(--red);
@@ -806,19 +843,216 @@
 
   /* ===== MOBILE ===== */
   @media (max-width: 900px) {
-    .nav-links { display: none; }
+    nav {
+      padding: 0 18px;
+    }
+
+    .nav-logo { min-width: 0; }
+
+    .nav-logo-img { height: 44px; }
+
+    .logo-mark { font-size: 1.55rem; }
+
+    .logo-sub {
+      font-size: 0.58rem;
+      letter-spacing: 1.4px;
+    }
+
+    .mobile-menu-toggle {
+      display: inline-flex;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      display: grid;
+      gap: 0;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 18px 34px rgba(0,0,0,0.28);
+      padding: 8px 18px 18px;
+      transform: translateY(-120%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .22s ease, opacity .22s ease;
+    }
+
+    .nav-links.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-links li { border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+    .nav-links li:last-child {
+      border-bottom: 0;
+      padding-top: 10px;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 14px 4px;
+      font-size: 0.92rem;
+    }
+
+    .nav-links .nav-cta {
+      text-align: center;
+      padding: 12px 18px;
+    }
+
+    .breadcrumb {
+      top: 64px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .breadcrumb::-webkit-scrollbar { display: none; }
+
+    #hero {
+      min-height: auto;
+      padding: 124px 18px 44px;
+      display: block;
+    }
+
+    .hero-content { max-width: 100%; }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 14vw, 4.6rem);
+    }
+
+    .hero-sub {
+      max-width: 100%;
+      font-size: 1rem;
+    }
+
+    .hero-actions { margin-top: 2rem; }
+
+    .hero-actions .btn-primary,
+    .hero-actions .btn-outline {
+      width: 100%;
+      text-align: center;
+    }
+
+    .hero-truck {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+      margin: 28px -18px 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero-truck img {
+      width: min(112vw, 540px);
+      margin: 0 auto;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.32));
+    }
+
+    section {
+      padding: 64px 18px;
+      scroll-margin-top: 104px;
+    }
+
+    .section-tag { letter-spacing: 2px; }
+
+    .section-title {
+      font-size: clamp(2.05rem, 10vw, 3rem);
+    }
+
     .sobre-grid, .sim-inner, .curr-inner, .contato-inner, .cambio-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     .servicos-grid { grid-template-columns: 1fr; }
     .dif-grid, .cambio-grid { grid-template-columns: 1fr 1fr; }
     .hero-globe { display: none; }
     .hero-stats { gap: 2rem; }
     .form-grid-2 { grid-template-columns: 1fr; }
+
+    .sobre-grid,
+    .cambio-inner,
+    .curr-inner,
+    .contato-inner,
+    .servicos-grid,
+    .dif-grid {
+      margin-top: 2rem;
+    }
+
+    .sobre-visual,
+    .cambio-panel,
+    .curr-block,
+    .servico-card,
+    .dif-card {
+      padding: 2rem;
+    }
+
+    .contato-info { padding-top: 0; }
+
+    .toast {
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      max-width: none;
+    }
   }
 
   @media (max-width: 560px) {
+    nav { height: 60px; }
+
+    .nav-links { top: 60px; }
+
+    .breadcrumb { display: none; }
+
+    #hero {
+      padding-top: 88px;
+      padding-bottom: 36px;
+    }
+
+    .hero-badge {
+      max-width: 100%;
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.45rem, 15vw, 3.65rem);
+    }
+
+    .btn-primary,
+    .btn-outline {
+      width: 100%;
+      padding-left: 18px;
+      padding-right: 18px;
+      text-align: center;
+    }
+
     .dif-grid, .cambio-grid { grid-template-columns: 1fr; }
-    .cambio-panel { padding: 2rem; }
-    .breadcrumb { font-size: 0.75rem; padding: 7px 5%; }
+    .sobre-stat-grid { grid-template-columns: 1fr; }
+
+    .cambio-panel,
+    .curr-block,
+    .sobre-visual,
+    .servico-card,
+    .dif-card {
+      padding: 1.45rem;
+    }
+
+    .cambio-result strong {
+      font-size: 1.6rem;
+      overflow-wrap: anywhere;
+    }
+
+    .info-item { gap: 0.8rem; }
+
+    .info-item .details span,
+    #address-text {
+      overflow-wrap: anywhere;
+    }
+
+    footer { text-align: center; }
   }
 </style>
 <style>
@@ -945,6 +1179,40 @@
   .a11y-label { font-size: 0.9rem; font-weight:600; text-align:center; color: #000; }
   #a11y-close { width: 100%; margin: 0 auto; display: block; padding: 10px 16px; text-align: center; }
   #a11y-toggle { padding:6px; }
+
+  @media (max-width: 560px) {
+    #a11y-widget {
+      right: 12px;
+      top: auto;
+      bottom: 12px;
+      transform: none;
+    }
+
+    #a11y-toggle {
+      width: 44px;
+      height: 44px;
+    }
+
+    #a11y-toggle img {
+      width: 30px !important;
+      height: 30px !important;
+    }
+
+    #a11y-panel {
+      width: min(300px, calc(100vw - 24px));
+      max-height: calc(100vh - 86px);
+      overflow-y: auto;
+    }
+
+    .a11y-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .a11y-card {
+      min-height: 88px;
+      padding: 14px 12px;
+    }
+  }
 </style>
 
 <!-- NAVBAR -->
@@ -956,7 +1224,7 @@
       <div class="logo-sub">Transporte de Qualidade</div>
     </div>
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="site-menu">
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#diferenciais">Diferenciais</a></li>
@@ -964,6 +1232,11 @@
     <li><a href="#curriculo">Trabalhe Conosco</a></li>
     <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
   </ul>
+  <button class="mobile-menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <div class="breadcrumb" aria-label="Caminho de navegação">
@@ -1441,6 +1714,43 @@
   function enviarContato() {
     showToast('✅ Mensagem enviada! Responderemos em breve.');
   }
+
+  (function(){
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const menu = document.getElementById('site-menu');
+    if (!menuToggle || !menu) return;
+
+    function closeMenu() {
+      menu.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Abrir menu');
+    }
+
+    function toggleMenu() {
+      const isOpen = menu.classList.toggle('is-open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+    }
+
+    menuToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      toggleMenu();
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!menu.classList.contains('is-open')) return;
+      if (menu.contains(event.target) || menuToggle.contains(event.target)) return;
+      closeMenu();
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) closeMenu();
+    });
+  })();
 
   (function(){
     const breadcrumbCurrent = document.getElementById('breadcrumb-current');
