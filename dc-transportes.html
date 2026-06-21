@@ -1,20 +1,954 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DC Transportes – Transporte de Qualidade</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="assets/css/sections.css">
-  <link rel="stylesheet" href="assets/css/responsive.css">
-  <link rel="stylesheet" href="assets/css/accessibility.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Transportes – Transporte de Qualidade</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b4b;
+    --navy-light: #162566;
+    --red: #e8001d;
+    --red-dark: #b80017;
+    --white: #ffffff;
+    --gray: #f4f6fb;
+    --gray-mid: #dde3f0;
+    --text: #1a1a2e;
+    --text-muted: #5a6080;
+    --globe: #b8cce8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo-img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .logo-mark {
+    display: flex; align-items: center; gap: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2rem; line-height: 1;
+    color: var(--white);
+  }
+
+  .logo-mark span { color: var(--red); }
+
+  .logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; font-weight: 600;
+    color: var(--globe); letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block; margin-top: -2px;
+  }
+
+  .nav-links {
+    display: flex; gap: clamp(0.8rem, 1.5vw, 2rem); list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--gray-mid);
+    text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: color .2s;
+  }
+
+  .nav-links a:hover { color: var(--red); }
+
+  .nav-cta {
+    background: var(--red);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 700 !important;
+    transition: background .2s !important;
+  }
+
+  .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+
+  .breadcrumb {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    background: rgba(255,255,255,0.96);
+    border-bottom: 1px solid rgba(13,27,75,0.08);
+    padding: 8px 5%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    box-shadow: 0 4px 16px rgba(13,27,75,0.06);
+  }
+
+  .breadcrumb a {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .breadcrumb a:hover { color: var(--red); }
+
+  .breadcrumb-separator { color: var(--red); font-weight: 700; }
+
+  .breadcrumb-current {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 116px 5% 0;
+  }
+
+  .hero-globe {
+    position: absolute;
+    right: -6%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 620px; height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #c5d8ef, #7da8d0 40%, #2e5b8a 80%, #0d1b4b);
+    opacity: 0.18;
+  }
+
+  .hero-globe::after {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='620' height='620'%3E%3Cellipse cx='200' cy='180' rx='120' ry='80' fill='none' stroke='%23ffffff' stroke-width='1.2' opacity='0.3'/%3E%3Cellipse cx='370' cy='320' rx='90' ry='60' fill='none' stroke='%23ffffff' stroke-width='1.2' opacity='0.3'/%3E%3Cline x1='0' y1='310' x2='620' y2='310' stroke='%23ffffff' stroke-width='1' opacity='0.2'/%3E%3Cline x1='0' y1='200' x2='620' y2='200' stroke='%23ffffff' stroke-width='0.7' opacity='0.15'/%3E%3Cline x1='310' y1='0' x2='310' y2='620' stroke='%23ffffff' stroke-width='0.7' opacity='0.15'/%3E%3C/svg%3E") center/cover;
+    pointer-events: none;
+  }
+
+  .hero-truck {
+    position: absolute;
+    right: -100px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+
+  .hero-truck img {
+    width: 800px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+  }
+
+  .arrow-top, .arrow-bot {
+    position: absolute;
+    height: 28px;
+    background: var(--red);
+    left: 0; right: 0;
+    display: flex; align-items: center;
+  }
+
+  .arrow-top { top: 30%; }
+  .arrow-bot { top: calc(30% + 100px); }
+
+  .arrow-top::after {
+    content: '';
+    position: absolute; left: 8%;
+    border: 14px solid transparent;
+    border-right-color: var(--red);
+    left: 0; margin-left: -27px;
+  }
+
+  .arrow-bot::after {
+    content: '';
+    position: absolute; right: 8%;
+    border: 14px solid transparent;
+    border-left-color: var(--red);
+    right: 0; margin-right: -27px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 620px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.75rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 14px; border-radius: 2px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    color: var(--white);
+    text-transform: uppercase;
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+
+  .hero-title em {
+    font-style: normal; color: var(--red);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    color: var(--globe);
+    font-size: 1.05rem; font-weight: 300;
+    line-height: 1.6; max-width: 480px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 2.5rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.45s ease both;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    border: none; cursor: pointer; border-radius: 4px;
+    text-decoration: none; display: inline-block;
+    transition: background .2s, transform .1s;
+  }
+
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 13px 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    border: 2px solid rgba(255,255,255,0.35); cursor: pointer; border-radius: 4px;
+    text-decoration: none; display: inline-block;
+    transition: border-color .2s, color .2s;
+  }
+
+  .btn-outline:hover { border-color: var(--white); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    animation: fadeUp 0.6s 0.6s ease both;
+  }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2.2rem;
+    color: var(--white); line-height: 1;
+  }
+
+  .stat-num span { color: var(--red); }
+
+  .stat-label {
+    font-size: 0.75rem; color: var(--globe);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* ===== SECTION BASE ===== */
+  section { padding: 90px 5%; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.75rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(2rem, 4vw, 3.2rem);
+    text-transform: uppercase; line-height: 1;
+    color: var(--navy);
+  }
+
+  .section-title.light { color: var(--white); }
+
+  /* ===== SOBRE ===== */
+  #sobre { background: var(--gray); }
+
+  .sobre-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+    margin-top: 3rem;
+  }
+
+  .sobre-text p {
+    color: var(--text-muted); line-height: 1.8;
+    font-size: 1rem; margin-bottom: 1rem;
+  }
+
+  .sobre-features {
+    list-style: none; margin-top: 1.5rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+
+  .sobre-features li {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    color: var(--text); font-size: 0.95rem;
+  }
+
+  .sobre-features li::before {
+    content: '';
+    width: 22px; height: 22px; flex-shrink: 0;
+    background: var(--red);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    margin-top: 1px;
+  }
+
+  .sobre-visual {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 3rem;
+    position: relative; overflow: hidden;
+  }
+
+  .sobre-visual::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,0,29,0.15), transparent 70%);
+  }
+
+  .sobre-stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+
+  .sobre-stat {
+    text-align: center; padding: 1.5rem 1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+  }
+
+  .sobre-stat .num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2.5rem;
+    color: var(--red);
+  }
+
+  .sobre-stat .lbl {
+    font-size: 0.8rem; color: var(--globe);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* ===== SERVIÇOS ===== */
+  #servicos { background: var(--white); }
+
+  .servicos-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  .servico-card {
+    background: var(--gray);
+    border-radius: 8px; padding: 2.5rem 2rem;
+    border-top: 4px solid transparent;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+    position: relative; overflow: hidden;
+  }
+
+  .servico-card:hover {
+    border-color: var(--red);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(232,0,29,0.1);
+  }
+
+  .serv-icon {
+    width: 52px; height: 52px;
+    background: var(--navy);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .serv-icon svg { fill: var(--white); width: 26px; }
+
+  .servico-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 1.25rem;
+    text-transform: uppercase; color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+
+  .servico-card p {
+    color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;
+  }
+
+  /* ===== DIFERENCIAIS ===== */
+  #diferenciais { background: var(--gray); }
+
+  .dif-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  .dif-card {
+    background: var(--white);
+    border-radius: 8px; padding: 2rem 1.5rem;
+    text-align: center;
+    transition: box-shadow .2s;
+  }
+
+  .dif-card:hover { box-shadow: 0 8px 30px rgba(13,27,75,0.1); }
+
+  .dif-icon {
+    width: 56px; height: 56px;
+    background: rgba(13,27,75,0.08);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--navy);
+  }
+
+  .dif-card h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    text-transform: uppercase; color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .dif-card p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; }
+
+  /* ===== CAMBIO ===== */
+  #cambio { background: var(--white); }
+
+  .cambio-inner {
+    display: grid; grid-template-columns: 0.95fr 1.25fr;
+    gap: 4rem; align-items: start; margin-top: 3rem;
+  }
+
+  .cambio-panel {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cambio-panel::before {
+    content: '';
+    position: absolute; right: -70px; top: -70px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,0,29,0.22), transparent 70%);
+  }
+
+  .cambio-panel > * { position: relative; z-index: 1; }
+
+  .cambio-panel h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.8rem;
+    text-transform: uppercase; color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .cambio-panel p {
+    color: var(--globe); line-height: 1.7; font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cambio-form {
+    display: grid; gap: 1rem;
+  }
+
+  .cambio-form label {
+    color: var(--globe);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cambio-form input,
+  .cambio-form select {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 5px;
+    padding: 12px 14px;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+  }
+
+  .cambio-form select option { color: var(--text); background: var(--white); }
+
+  .cambio-result {
+    margin-top: 1rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-left: 4px solid var(--red);
+    border-radius: 6px;
+    padding: 1.2rem;
+  }
+
+  .cambio-result small {
+    color: var(--globe);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .cambio-result strong {
+    display: block;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-top: 0.35rem;
+  }
+
+  .cambio-status {
+    color: var(--globe);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin-top: 1rem;
+  }
+
+  .cambio-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .cambio-card {
+    background: var(--gray);
+    border-radius: 8px;
+    padding: 1.25rem;
+    border-top: 4px solid transparent;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+
+  .cambio-card:hover {
+    border-color: var(--red);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(13,27,75,0.08);
+  }
+
+  .cambio-card .pais {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.35rem;
+  }
+
+  .cambio-card strong {
+    color: var(--navy);
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+  }
+
+  .cambio-card span {
+    color: var(--red);
+    display: block;
+    font-weight: 700;
+    margin-top: 0.5rem;
+  }
+
+  /* ===== CURRICULO ===== */
+  #curriculo { background: var(--white); }
+
+  .curr-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start; margin-top: 3rem;
+  }
+
+  .curr-block {
+    background: var(--gray);
+    border-radius: 10px; padding: 2.5rem;
+  }
+
+  .curr-block h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.8rem;
+    text-transform: uppercase; color: var(--navy);
+    margin-bottom: 1rem;
+  }
+
+  .curr-block p {
+    color: var(--text-muted); font-size: 1rem;
+    line-height: 1.7; margin-bottom: 1rem;
+  }
+
+  .vaga-card {
+    margin-top: 2rem; background: var(--white);
+    border-radius: 8px; padding: 1.5rem;
+    border-left: 4px solid var(--red);
+  }
+
+  .vaga-card strong {
+    color: var(--navy); font-family:'Barlow Condensed',sans-serif;
+    font-size: 1.05rem;
+  }
+
+  .vaga-card ul {
+    list-style: none; margin-top: 0.75rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+
+  .vaga-card li {
+    color: var(--text-muted); font-size: 0.9rem;
+  }
+
+  .curr-form {
+    margin-top: 1.5rem;
+  }
+
+  .curr-form .form-row input,
+  .curr-form .form-row select,
+  .curr-form .form-row textarea {
+    background: var(--white);
+    border: 1.5px solid var(--gray-mid);
+    color: var(--text);
+  }
+
+  .curr-form .form-row input:focus,
+  .curr-form .form-row select:focus,
+  .curr-form .form-row textarea:focus {
+    border-color: var(--navy); background: var(--white);
+  }
+
+  .curr-form .form-row input::placeholder,
+  .curr-form .form-row textarea::placeholder { color: #aaa; }
+
+  .curr-form .form-row label { color: var(--text-muted); }
+
+  .curr-form .form-row textarea {
+    width: 100%; resize: vertical; min-height: 100px;
+    background: var(--white);
+    border: 1.5px solid var(--gray-mid);
+    border-radius: 5px; padding: 12px 14px;
+    color: var(--text); font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+  }
+
+  .curr-form .form-row select option { background: var(--white); color: var(--text); }
+
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  /* ===== CONTATO ===== */
+  #contato { background: var(--navy); }
+
+  .contato-inner {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 5rem; align-items: start; position: relative; z-index: 1;
+  }
+
+  .contato-form .form-row input,
+  .contato-form .form-row textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 5px; padding: 12px 14px;
+    color: var(--white); font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem; width: 100%;
+    transition: border-color .2s;
+  }
+
+  .contato-form .form-row textarea { min-height: 120px; resize: vertical; }
+
+  .contato-form .form-row input:focus,
+  .contato-form .form-row textarea:focus { outline: none; border-color: var(--red); }
+
+  .contato-form .form-row input::placeholder,
+  .contato-form .form-row textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+  .contato-info { padding-top: 4rem; }
+
+  .contato-info p {
+    color: var(--globe); font-size: 1rem;
+    line-height: 1.7; margin-top: 1.25rem; margin-bottom: 2rem;
+  }
+
+  .info-items { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .info-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+
+  .info-item .ico {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(232,0,29,0.15);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .info-item .details { flex: 1; }
+  .info-item .details strong { color: var(--white); font-size: 0.85rem; display: block; margin-bottom: 2px; }
+  .info-item .details span { color: var(--globe); font-size: 0.9rem; }
+
+  .contact-phone-row {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+
+  .btn-whatsapp {
+    background: #25d366;
+    color: #062b15;
+    padding: 7px 12px;
+    border-radius: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .2s, transform .1s;
+  }
+
+  .btn-whatsapp:hover {
+    background: #1ebe5d;
+    transform: translateY(-1px);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #060d29;
+    padding: 2.5rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.6rem;
+    color: var(--white);
+  }
+
+  .footer-logo span { color: var(--red); }
+
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+
+  /* ===== UTILS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .mt-3 { margin-top: 3rem; }
+
+  /* ===== FORM STYLES ===== */
+  .form-row { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  .form-row label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
+  .form-row input, .form-row textarea, .form-row select { 
+    pointer-events: auto !important; 
+    cursor: text; 
+    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: 5px;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed; bottom: 30px; right: 30px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 14px 24px;
+    border-left: 4px solid var(--red);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    transform: translateY(100px); opacity: 0;
+    transition: all .3s;
+    z-index: 999;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .sobre-grid, .sim-inner, .curr-inner, .contato-inner, .cambio-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .servicos-grid { grid-template-columns: 1fr; }
+    .dif-grid, .cambio-grid { grid-template-columns: 1fr 1fr; }
+    .hero-globe { display: none; }
+    .hero-stats { gap: 2rem; }
+    .form-grid-2 { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .dif-grid, .cambio-grid { grid-template-columns: 1fr; }
+    .cambio-panel { padding: 2rem; }
+    .breadcrumb { font-size: 0.75rem; padding: 7px 5%; }
+  }
+</style>
+<style>
+  /* Accessibility widget styles */
+  #a11y-widget {
+    position: fixed;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  #a11y-toggle {
+    width: 48px; height: 48px; border-radius: 8px;
+    background: var(--navy); color: var(--white);
+    border: none; box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+
+  #a11y-panel {
+    display: none; margin-top: 10px; background: rgba(255,255,255,0.98);
+    border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    overflow: hidden; width: 220px;
+  }
+
+  #a11y-panel.show { display: block; }
+
+  #a11y-panel button { display: block; width: 100%; border: none; background: transparent; padding: 12px 14px; text-align: left; cursor: pointer; font-weight:600; }
+  #a11y-panel button:hover { background: rgba(0,0,0,0.06); }
+
+  /* A11y classes */
+  .a11y-contrast-dark { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark a { color: #fff !important; }
+
+  .a11y-contrast-light { background: #fff !important; color: #000 !important; }
+  .a11y-contrast-light a { color: #0066cc !important; }
+
+  /* Dark contrast mode: enforce on main layout elements */
+  .a11y-contrast-dark, .a11y-contrast-dark body, .a11y-contrast-dark html { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark nav, .a11y-contrast-dark footer, .a11y-contrast-dark section, .a11y-contrast-dark header, .a11y-contrast-dark .breadcrumb { background: #000 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark a { color: #ffd400 !important; }
+  .a11y-contrast-dark .btn-primary { background: #ffd400 !important; color: #000 !important; border-color: #ffd400 !important; }
+  .a11y-contrast-dark .btn-outline { border-color: #ffd400 !important; color: #ffd400 !important; }
+  .a11y-contrast-dark input, .a11y-contrast-dark textarea, .a11y-contrast-dark select { background: #111 !important; color: #ffd400 !important; border-color: #333 !important; pointer-events: auto !important; }
+  .a11y-contrast-dark input:focus, .a11y-contrast-dark textarea:focus, .a11y-contrast-dark select:focus { outline: 2px solid #ffd400; }
+  .a11y-contrast-dark .footer-logo span { color: #ffd400 !important; }
+  .a11y-contrast-dark .nav-links a { color: #ffd400 !important; }
+  .a11y-contrast-dark .logo-mark, .a11y-contrast-dark .logo-sub { color: #ffd400 !important; }
+  .a11y-contrast-dark .section-title, .a11y-contrast-dark .section-tag, .a11y-contrast-dark h1, .a11y-contrast-dark h2, .a11y-contrast-dark h3, .a11y-contrast-dark p, .a11y-contrast-dark label { color: #ffd400 !important; }
+  .a11y-contrast-dark .hero-sub, .a11y-contrast-dark .hero-title { color: #ffd400 !important; }
+  .a11y-contrast-dark .contato-form .form-row label, .a11y-contrast-dark .curr-form .form-row label { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-features li { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-features li::before { background: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-visual { background: #000 !important; border: 2px solid #ffd400 !important; }
+  .a11y-contrast-dark .sobre-visual::before { background: transparent !important; }
+  .a11y-contrast-dark .sobre-stat { background: #000 !important; border-color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-stat .num { color: #ffd400 !important; }
+  .a11y-contrast-dark .sobre-stat .lbl { color: #ffd400 !important; }
+  .a11y-contrast-dark .servico-card, .a11y-contrast-dark .dif-card, .a11y-contrast-dark .curr-block, .a11y-contrast-dark .cambio-panel, .a11y-contrast-dark .cambio-card, .a11y-contrast-dark .cambio-result { background: #000 !important; border: 2px solid #ffd400 !important; }
+  .a11y-contrast-dark .servico-card h3, .a11y-contrast-dark .servico-card p, .a11y-contrast-dark .dif-card h4, .a11y-contrast-dark .dif-card p, .a11y-contrast-dark .curr-block h3, .a11y-contrast-dark .curr-block p, .a11y-contrast-dark .cambio-card strong, .a11y-contrast-dark .cambio-card span, .a11y-contrast-dark .cambio-card .pais, .a11y-contrast-dark .cambio-result strong, .a11y-contrast-dark .cambio-result small, .a11y-contrast-dark .cambio-status { color: #ffd400 !important; }
+  .a11y-contrast-dark .servico-card svg, .a11y-contrast-dark .dif-card svg, .a11y-contrast-dark .curr-block svg { stroke: #fff !important; fill: none !important; }
+  .a11y-contrast-dark .info-item .ico { background: #111 !important; }
+  .a11y-contrast-dark .info-item .details strong, .a11y-contrast-dark .info-item .details span { color: #ffd400 !important; }
+
+  /* Light contrast mode: enforce high contrast light theme */
+  .a11y-contrast-light, .a11y-contrast-light body, .a11y-contrast-light html { background: #ffffff !important; color: #0b0b0b !important; }
+  .a11y-contrast-light nav, .a11y-contrast-light footer, .a11y-contrast-light section, .a11y-contrast-light header, .a11y-contrast-light .breadcrumb { background: #ffffff !important; color: #0b0b0b !important; }
+  .a11y-contrast-light a { color: #0b0b0b !important; text-decoration: underline !important; }
+  .a11y-contrast-light .btn-primary { background: #0b0b0b !important; color: #fff !important; }
+  .a11y-contrast-light .btn-outline { border-color: #0b0b0b !important; color: #0b0b0b !important; }
+  .a11y-contrast-light input, .a11y-contrast-light textarea, .a11y-contrast-light select { background: #fff !important; color: #0b0b0b !important; border-color: #999 !important; pointer-events: auto !important; }
+  .a11y-contrast-light input:focus, .a11y-contrast-light textarea:focus, .a11y-contrast-light select:focus { outline: 2px solid #0b0b0b; }
+  .a11y-contrast-light .nav-links a { color: #0b0b0b !important; }
+  .a11y-contrast-light .logo-mark, .a11y-contrast-light .logo-sub { color: #0b0b0b !important; }
+  .a11y-contrast-light .section-title, .a11y-contrast-light .section-tag, .a11y-contrast-light h1, .a11y-contrast-light h2, .a11y-contrast-light h3, .a11y-contrast-light p, .a11y-contrast-light label { color: #0b0b0b !important; }
+  .a11y-contrast-light .hero-sub, .a11y-contrast-light .hero-title { color: #0b0b0b !important; }
+  .a11y-contrast-light .hero-title em { color: #0b0b0b !important; }
+  .a11y-contrast-light .footer-logo, .a11y-contrast-light .footer-logo span { color: #0b0b0b !important; }
+  .a11y-contrast-light .nav-cta { background: transparent !important; border: 2px solid #0b0b0b !important; color: #0b0b0b !important; }
+  .a11y-contrast-light .nav-cta:hover { background: rgba(0,0,0,0.06) !important; }
+  .a11y-contrast-light .contato-form .form-row label, .a11y-contrast-light .curr-form .form-row label { color: #0b0b0b !important; }
+  .a11y-contrast-light .info-item .details strong, .a11y-contrast-light .info-item .details span { color: #0b0b0b !important; }
+  .a11y-contrast-light .info-item .ico { background: #000 !important; }
+  .a11y-contrast-light .info-item .ico svg { stroke: #fff !important; }
+  .a11y-contrast-light .sobre-visual { background: #000 !important; color: #fff !important; }
+  .a11y-contrast-light .sobre-visual::before { background: transparent !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat { background: #111 !important; border-color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat .num { color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-stat .lbl { color: #fff !important; }
+  .a11y-contrast-light .sobre-visual .sobre-features li::before { background: #fff !important; }
+  .a11y-contrast-light .servico-card .serv-icon, .a11y-contrast-light .dif-card .dif-icon { background: #000 !important; }
+  .a11y-contrast-light .servico-card .serv-icon svg, .a11y-contrast-light .dif-card .dif-icon svg { stroke: #fff !important; fill: #fff !important; }
+  .a11y-contrast-light .cambio-panel, .a11y-contrast-light .cambio-card, .a11y-contrast-light .cambio-result { background: #fff !important; border: 2px solid #0b0b0b !important; }
+  .a11y-contrast-light .cambio-card strong, .a11y-contrast-light .cambio-card span, .a11y-contrast-light .cambio-card .pais, .a11y-contrast-light .cambio-result strong, .a11y-contrast-light .cambio-result small, .a11y-contrast-light .cambio-status { color: #0b0b0b !important; }
+
+  .a11y-highlight-links a, .a11y-highlight-links .btn-primary, .a11y-highlight-links .btn-outline, .a11y-highlight-links button[type=submit], .a11y-highlight-links .nav-links a, .a11y-highlight-links .nav-cta, .a11y-highlight-links .hero-actions a {
+    outline: 3px solid #ffd400 !important;
+    background: rgba(0,0,0,0.85) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+
+  .a11y-highlight-links a { background: rgba(0,0,0,0.85); padding: 2px 4px; border-radius: 3px; }
+  .a11y-highlight-links .btn-primary, .a11y-highlight-links button[type=submit] { box-shadow: 0 0 0 3px rgba(255,212,64,0.12) inset; }
+
+  /* Panel header */
+  .a11y-panel-header { padding: 10px 12px; font-weight:700; text-align:center; border-bottom:1px solid rgba(0,0,0,0.06); background: #f7f7f7; }
+
+</style>
 </head>
 <body>
 
+<style>
+  /* A11Y panel card styles */
+  #a11y-panel { width: 320px; }
+  .a11y-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+  .a11y-card { background: #fff; border: 2px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 18px 14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; cursor:pointer; text-align:center; transition: all 0.2s; }
+  .a11y-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.12); transform: translateY(-2px); }
+  .a11y-card:focus { outline: 3px solid #0066cc; box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
+  .a11y-card img { width: 32px; height: 32px; object-fit: contain; display:block; margin:0 auto; }
+  .a11y-icon { width: 56px; height: 56px; display:flex; align-items:center; justify-content:center; border-radius: 14px; background: #000; }
+  .a11y-icon img { filter: invert(1) brightness(1.1); }
+  .a11y-label { font-size: 0.9rem; font-weight:600; text-align:center; color: #000; }
+  #a11y-close { width: 100%; margin: 0 auto; display: block; padding: 10px 16px; text-align: center; }
+  #a11y-toggle { padding:6px; }
+</style>
+
 <!-- NAVBAR -->
-<nav id="site-nav">
+<nav>
   <a href="#hero" class="nav-logo">
     <img src="img/logo.png" alt="DC Transportes Logo" class="nav-logo-img">
     <div>
@@ -22,7 +956,7 @@
       <div class="logo-sub">Transporte de Qualidade</div>
     </div>
   </a>
-  <ul class="nav-links" id="site-menu">
+  <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#diferenciais">Diferenciais</a></li>
@@ -30,14 +964,9 @@
     <li><a href="#curriculo">Trabalhe Conosco</a></li>
     <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
   </ul>
-  <button class="mobile-menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
 </nav>
 
-<div class="breadcrumb is-hero" aria-label="Caminho de navegação">
+<div class="breadcrumb" aria-label="Caminho de navegação">
   <a href="#hero">Início</a>
   <span class="breadcrumb-separator">/</span>
   <span class="breadcrumb-current" id="breadcrumb-current">Início</span>
@@ -56,138 +985,50 @@
       <em>no destino certo</em>
     </h1>
     <p class="hero-sub">
-      A DC Transportes une tecnologia e compromisso para levar sua carga com <strong>segurança, agilidade e transparência</strong> para qualquer destino.
+      A DC Transportes une tecnologia e compromisso para levar sua carga com segurança, agilidade e transparência para qualquer destino.
     </p>
     <div class="hero-actions">
       <a href="#sobre" class="btn-primary">Conheça a DC</a>
     </div>
     <div class="hero-stats">
-      <div class="stat-item">
-        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M7 7l2 2M15 15l2 2M17 7l-2 2M9 15l-2 2"/>
-        </svg>
-        <div>
-          <div class="stat-num">+6 <span>Anos</span></div>
-          <div class="stat-label">de Experiência</div>
-        </div>
-      </div>
-      <div class="stat-item">
-        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.7"/><path d="M16 3.3a4 4 0 0 1 0 7.4"/>
-        </svg>
-        <div>
-          <div class="stat-num">+70</div>
-          <div class="stat-label">Clientes Ativos</div>
-        </div>
-      </div>
-      <div class="stat-item">
-        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-        </svg>
-        <div>
-          <div class="stat-num">+50 <span>Cidades</span></div>
-          <div class="stat-label">Atendidas</div>
-        </div>
-      </div>
-      <div class="stat-item">
-        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-5"/>
-        </svg>
-        <div>
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Compromisso</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- SOBRE -->
 <section id="sobre">
+  <div class="section-tag">Quem Somos</div>
+  <h2 class="section-title">Sobre a DC Transportes</h2>
   <div class="sobre-grid">
-    <div class="sobre-visual">
-      <div class="sobre-stat-grid">
-        <div class="sobre-stat">
-          <div class="sobre-stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M8.2 20.2 12 18l3.8 2.2-.9-4.3 3.2-3-4.4-.4L12 8.5l-1.7 4-4.4.4 3.2 3-.9 4.3z"/><circle cx="12" cy="12" r="9"/>
-            </svg>
-          </div>
-          <div class="num">6+</div>
-          <div class="lbl">Anos de Experiência</div>
-          <p>Trabalhando com excelência e responsabilidade.</p>
-        </div>
-        <div class="sobre-stat">
-          <div class="sobre-stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <div class="num">70+</div>
-          <div class="lbl">Clientes Ativos</div>
-          <p>Empresas que confiam na nossa parceria.</p>
-        </div>
-        <div class="sobre-stat">
-          <div class="sobre-stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-6h6v6"/><path d="M9 10h.01M15 10h.01"/>
-            </svg>
-          </div>
-          <div class="num">50+</div>
-          <div class="lbl">Cidades Atendidas</div>
-          <p>Atuação em todo o Brasil com cobertura estratégica.</p>
-        </div>
-        <div class="sobre-stat">
-          <div class="sobre-stat-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-5"/>
-            </svg>
-          </div>
-          <div class="num">100%</div>
-          <div class="lbl">Compromisso</div>
-          <p>Segurança, qualidade e foco em resultados sempre.</p>
-        </div>
-      </div>
-    </div>
     <div class="sobre-text">
-      <div class="section-tag">Quem Somos</div>
-      <h2 class="section-title">Sobre a<br><span>DC</span> Transportes</h2>
       <p>A <strong>DC Transportes</strong> nasceu com o propósito de oferecer soluções de transporte de carga com eficiência, segurança e atendimento personalizado. Atuamos também na área de Recursos Humanos, conectando profissionais qualificados às melhores oportunidades.</p>
       <p>Nosso compromisso é ser o parceiro ideal tanto para empresas que precisam transportar mercadorias quanto para profissionais que buscam crescer no setor.</p>
       <ul class="sobre-features">
-        <li>
-          <span class="sobre-feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-            </svg>
-          </span>
-          <span><strong>Frota própria e moderna</strong><small>Caminhões novos e revisados para garantir agilidade e segurança.</small></span>
-        </li>
-        <li>
-          <span class="sobre-feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </span>
-          <span><strong>Equipe comprometida e especializada</strong><small>Profissionais qualificados prontos para te atender.</small></span>
-        </li>
-        <li>
-          <span class="sobre-feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-            </svg>
-          </span>
-          <span><strong>Cobertura regional e nacional</strong><small>Atendemos diversas regiões do Brasil com eficiência.</small></span>
-        </li>
-        <li>
-          <span class="sobre-feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 3.07 9.81 19.79 19.79 0 0 1 0 1.13 2 2 0 0 1 2 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L6.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-          </span>
-          <span><strong>Atendimento via WhatsApp e telefone</strong><small>Suporte rápido, humanizado e sempre disponível para você.</small></span>
-        </li>
+        <li>Frota própria</li>
+        <li>Equipe comprometida</li>
+        <li>Cobertura regional e nacional</li>
+        <li>Atendimento via WhatsApp e telefone</li>
       </ul>
+    </div>
+    <div class="sobre-visual">
+      <div class="sobre-stat-grid">
+        <div class="sobre-stat">
+          <div class="num">6+</div>
+          <div class="lbl">Anos de Experiência</div>
+        </div>
+        <div class="sobre-stat">
+          <div class="num">70+</div>
+          <div class="lbl">Clientes Ativos</div>
+        </div>
+        <div class="sobre-stat">
+          <div class="num">50+</div>
+          <div class="lbl">Cidades Atendidas</div>
+        </div>
+        <div class="sobre-stat">
+          <div class="num">Atendimento</div>
+          <div class="lbl">de Qualidade</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -196,7 +1037,6 @@
 <section id="servicos">
   <div class="section-tag">O que Fazemos</div>
   <h2 class="section-title">Nossos Serviços</h2>
-  <p class="section-lead">Soluções completas e integradas para garantir que sua carga chegue ao destino com segurança, agilidade e eficiência.</p>
   <div class="servicos-grid">
 
     <div class="servico-card">
@@ -207,7 +1047,6 @@
       </div>
       <h3>Transporte de Carga</h3>
       <p>Transporte seguro e ágil de cargas fracionadas ou lotação completa, com rastreamento em tempo real e entrega garantida no prazo.</p>
-      <a class="servico-more" href="#contato">Saiba Mais</a>
     </div>
 
     <div class="servico-card">
@@ -218,7 +1057,6 @@
       </div>
       <h3>Logística Integrada</h3>
       <p>Planejamento completo da cadeia logística com soluções sob medida para sua empresa, otimizando custos e reduzindo prazos.</p>
-      <a class="servico-more" href="#contato">Saiba Mais</a>
     </div>
 
     <div class="servico-card">
@@ -229,7 +1067,6 @@
       </div>
       <h3>Recursos Humanos</h3>
       <p>Recrutamento e seleção de profissionais para o setor de transportes e logística.</p>
-      <a class="servico-more" href="#curriculo">Saiba Mais</a>
     </div>
 
     <div class="servico-card">
@@ -240,7 +1077,6 @@
       </div>
       <h3>Gestão de Documentos</h3>
       <p>Emissão e gestão de notas fiscais, CTe e documentação de transporte com total conformidade legal e fiscal.</p>
-      <a class="servico-more" href="#contato">Saiba Mais</a>
     </div>
 
     <div class="servico-card">
@@ -251,7 +1087,6 @@
       </div>
       <h3>Transporte Especializado</h3>
       <p>Soluções para cargas especiais, sensíveis ou de alto valor com veículos adaptados e equipe treinada.</p>
-      <a class="servico-more" href="#contato">Saiba Mais</a>
     </div>
 
     <div class="servico-card">
@@ -262,7 +1097,6 @@
       </div>
       <h3>Atendimento Personalizado</h3>
       <p>Suporte via WhatsApp, telefone e e-mail para acompanhamento de pedidos, cotações e resolução rápida de demandas.</p>
-      <a class="servico-more" href="#contato">Saiba Mais</a>
     </div>
 
   </div>
@@ -271,145 +1105,73 @@
 
 <!-- DIFERENCIAIS -->
 <section id="diferenciais">
-  <div class="dif-orbit">
-    <div class="dif-grid">
-      <div class="dif-card">
-        <div class="dif-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
-        </div>
-        <h4>Orçamento Rápido</h4>
-        <p>Resposta em até 30 minutos para solicitações de orçamento durante o horário comercial.</p>
+  <div class="section-tag">Por que nos escolher</div>
+  <h2 class="section-title">Nossos Diferenciais</h2>
+  <div class="dif-grid">
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
       </div>
-      <div class="dif-card">
-        <div class="dif-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-5"/>
-          </svg>
-        </div>
-        <h4>Segurança Total</h4>
-        <p>Motoristas treinados e veículos revisados para sua total tranquilidade.</p>
-      </div>
-      <div class="dif-card">
-        <div class="dif-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
-            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-          </svg>
-        </div>
-        <h4>Transparência</h4>
-        <p>Informações claras e acompanhamento em tempo real da sua carga.</p>
-      </div>
-      <div class="dif-card">
-        <div class="dif-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
-            <path d="M8.2 20.2 12 18l3.8 2.2-.9-4.3 3.2-3-4.4-.4L12 8.5l-1.7 4-4.4.4 3.2 3-.9 4.3z"/><circle cx="12" cy="12" r="9"/>
-          </svg>
-        </div>
-        <h4>Confiabilidade</h4>
-        <p>Mais de 6 anos entregando resultados. Uma empresa que cumpre o que promete.</p>
-      </div>
+      <h4>Orçamento Rápido</h4>
+      <p>Resposta em até 30 minutos para solicitações de orçamento durante o horário comercial.</p>
     </div>
-  </div>
-  <div class="dif-content">
-    <div class="section-tag">Por que nos escolher</div>
-    <h2 class="section-title">Nossos<br><span>Diferenciais</span></h2>
-    <p class="section-lead">Na DC Transportes, cada detalhe importa. Desenvolvemos soluções para garantir segurança, eficiência e transparência em cada etapa da operação.</p>
-    <ul class="dif-checklist">
-      <li>Resposta rápida para orçamentos</li>
-      <li>Equipe treinada e qualificada</li>
-      <li>Acompanhamento em tempo real</li>
-      <li>Atendimento humanizado</li>
-      <li>Cobertura regional e nacional</li>
-      <li>Compromisso com prazos</li>
-    </ul>
-    <a href="#contato" class="btn-primary dif-cta">Solicitar Orçamento</a>
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+        </svg>
+      </div>
+      <h4>Segurança Total</h4>
+      <p>Motoristas treinados para sua tranquilidade.</p>
+    </div>
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+      </div>
+      <h4>Transparência</h4>
+      <p>Informações claras, sem surpresas.</p>
+    </div>
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <h4>Confiabilidade</h4>
+      <p>Mais de 6 anos entregando resultados. Uma empresa que cumpre o que promete.</p>
+    </div>
   </div>
 </section>
 
 <!-- CAMBIO -->
 <section id="cambio">
-  <div class="cambio-intro">
-    <div class="section-tag">Ferramenta</div>
-    <h2 class="section-title">Conversor<br><span>de Câmbio</span></h2>
-    <p class="section-lead">Acompanhe cotações em tempo real das principais moedas da América do Sul e converta valores de forma rápida, segura e confiável.</p>
-    <div class="cambio-benefits">
-      <div class="cambio-benefit">
-        <span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M13 2 4 14h7l-1 8 10-13h-7l0-7z"/>
-          </svg>
-        </span>
-        <div><strong>Cotações em tempo real</strong><small>Dados atualizados automaticamente para você tomar decisões com mais segurança.</small></div>
-      </div>
-      <div class="cambio-benefit">
-        <span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="M9 12h6"/>
-          </svg>
-        </span>
-        <div><strong>Moedas da América do Sul</strong><small>Conversão para as principais moedas regionais com praticidade.</small></div>
-      </div>
-      <div class="cambio-benefit">
-        <span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 19V5"/>
-            <path d="M4 19h16"/>
-            <path d="M8 16v-5"/>
-            <path d="M12 16V8"/>
-            <path d="M16 16v-7"/>
-          </svg>
-        </span>
-        <div><strong>Transparência</strong><small>Informações claras e confiáveis para seu planejamento financeiro.</small></div>
-      </div>
-      <div class="cambio-benefit">
-        <span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="4" y="10" width="16" height="10" rx="2"/>
-            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
-            <path d="M12 14v2"/>
-          </svg>
-        </span>
-        <div><strong>Segurança</strong><small>Sistema seguro e confiável para todas as suas consultas.</small></div>
-      </div>
-    </div>
-  </div>
+  <div class="section-tag">Ferramenta</div>
+  <h2 class="section-title">Conversor de Câmbio</h2>
   <div class="cambio-inner">
     <div class="cambio-panel">
-      <div class="cambio-panel-head">
-        <div class="cambio-panel-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v20"/>
-            <path d="M17 6.5C15.8 5.6 14.4 5 12.4 5 9.8 5 8 6.2 8 8.2c0 4 9 2.1 9 7.1 0 2.3-2.1 3.7-5 3.7-2 0-3.7-.6-5-1.7"/>
-          </svg>
-        </div>
-        <div>
-          <h3>Conversor de Câmbio</h3>
-          <p>Valores em tempo real <span></span> Atualizado agora</p>
-        </div>
-      </div>
+      <h3>Real para América do Sul</h3>
+      <p>Converta valores em real para moedas usadas em países sul-americanos. As cotações são carregadas automaticamente quando a página abre.</p>
       <div class="cambio-form">
         <div class="form-row">
-          <label for="brl-amount">1. Valor em real</label>
-          <div class="cambio-input-prefix">
-            <span>R$</span>
-            <input id="brl-amount" type="number" min="0" step="0.01" value="100" inputmode="decimal" placeholder="Digite o valor">
-          </div>
+          <label for="brl-amount">Valor em Real</label>
+          <input id="brl-amount" type="number" min="0" step="0.01" value="100" inputmode="decimal">
         </div>
         <div class="form-row">
-          <label for="currency-target">2. Moeda de destino</label>
+          <label for="currency-target">Moeda de destino</label>
           <select id="currency-target"></select>
         </div>
       </div>
       <div class="cambio-result" aria-live="polite">
         <small>Resultado</small>
         <strong id="currency-result">Carregando...</strong>
-        <div class="cambio-trend">↗ +0,32% <span>em relação ao fechamento anterior</span></div>
       </div>
-      <div class="cambio-grid" id="currency-grid"></div>
       <div class="cambio-status" id="currency-status">Buscando cotações atuais...</div>
     </div>
+    <div class="cambio-grid" id="currency-grid"></div>
   </div>
 </section>
 
@@ -530,31 +1292,9 @@
 <!-- CONTATO -->
 <section id="contato">
   <div class="contato-inner">
-    <div class="contato-copy">
+    <div>
       <div class="section-tag">Fale Conosco</div>
       <h2 class="section-title light">Entre em<br>Contato</h2>
-      <p class="contato-desktop-lead">Preencha o formulário ao lado e retornaremos o mais rápido possível.</p>
-      <p class="contato-mobile-lead">Prefere falar diretamente? Entre em contato por um dos nossos canais. Respondemos rapidamente durante o horário comercial.</p>
-      <div class="contato-benefits">
-        <div class="contato-benefit">
-          <span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-5"/>
-            </svg>
-          </span>
-          <div><strong>Atendimento rápido</strong><small>Resposta em até 30 minutos durante o horário comercial.</small></div>
-        </div>
-        <div class="contato-benefit">
-          <span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
-              <rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="M12 15v2"/>
-            </svg>
-          </span>
-          <div><strong>Seus dados protegidos</strong><small>Garantimos a segurança das suas informações.</small></div>
-        </div>
-      </div>
-    </div>
-    <div class="contato-form-card">
       <form class="contato-form" style="margin-top:2rem" action="https://formsubmit.co/dctrasnsportes@gmail.com" method="POST" target="_blank">
         <input type="hidden" name="_subject" value="Mensagem pelo site - DC Transportes">
         <input type="hidden" name="_captcha" value="false">
@@ -679,6 +1419,291 @@
   </div>
 </div>
 
-  <script src="assets/js/main.js"></script>
+<script>
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  function enviarCurriculo() {
+    showToast('✅ Currículo enviado com sucesso! Entraremos em contato.');
+  }
+
+  function enviarAgregado() {
+    showToast('✅ Cadastro enviado! Logo entraremos em contato para alinhar o frete.');
+  }
+
+  function enviarContato() {
+    showToast('✅ Mensagem enviada! Responderemos em breve.');
+  }
+
+  (function(){
+    const breadcrumbCurrent = document.getElementById('breadcrumb-current');
+    const sectionLabels = {
+      hero: 'Início',
+      sobre: 'Sobre',
+      servicos: 'Serviços',
+      diferenciais: 'Diferenciais',
+      cambio: 'Câmbio',
+      curriculo: 'Trabalhe Conosco',
+      contato: 'Fale Conosco'
+    };
+    const sections = Object.keys(sectionLabels)
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!breadcrumbCurrent || !sections.length) return;
+
+    function updateBreadcrumb() {
+      const scrollPosition = window.scrollY + 150;
+      let currentSection = sections[0];
+
+      sections.forEach((section) => {
+        if (section.offsetTop <= scrollPosition) currentSection = section;
+      });
+
+      breadcrumbCurrent.textContent = sectionLabels[currentSection.id] || 'Início';
+    }
+
+    updateBreadcrumb();
+    window.addEventListener('scroll', updateBreadcrumb, { passive: true });
+  })();
+
+  (function(){
+    const currencies = [
+      { code: 'ARS', country: 'Argentina', name: 'Peso argentino' },
+      { code: 'BOB', country: 'Bolívia', name: 'Boliviano' },
+      { code: 'CLP', country: 'Chile', name: 'Peso chileno' },
+      { code: 'COP', country: 'Colombia', name: 'Peso colombiano' },
+      { code: 'USD', country: 'Equador', name: 'Dólar americano' },
+      { code: 'GYD', country: 'Guiana', name: 'Dólar guianense' },
+      { code: 'PYG', country: 'Paraguai', name: 'Guarani paraguaio' },
+      { code: 'PEN', country: 'Peru', name: 'Sol peruano' },
+      { code: 'SRD', country: 'Suriname', name: 'Dólar surinamês' },
+      { code: 'UYU', country: 'Uruguai', name: 'Peso uruguaio' },
+      { code: 'VES', country: 'Venezuela', name: 'Bolívar venezuelano' },
+      { code: 'EUR', country: 'Guiana Francesa', name: 'Euro' }
+    ];
+
+    const fallbackRates = {
+      ARS: 195, BOB: 1.25, CLP: 170, COP: 750, USD: 0.18, GYD: 38,
+      PYG: 1350, PEN: 0.67, SRD: 6.5, UYU: 7.2, VES: 6.5, EUR: 0.17
+    };
+
+    const amountInput = document.getElementById('brl-amount');
+    const targetSelect = document.getElementById('currency-target');
+    const resultEl = document.getElementById('currency-result');
+    const statusEl = document.getElementById('currency-status');
+    const gridEl = document.getElementById('currency-grid');
+    if (!amountInput || !targetSelect || !resultEl || !statusEl || !gridEl) return;
+
+    let rates = fallbackRates;
+    let ratesSource = 'offline';
+
+    function getAmount() {
+      const value = Number(String(amountInput.value).replace(',', '.'));
+      return Number.isFinite(value) && value > 0 ? value : 0;
+    }
+
+    function formatCurrency(value, code) {
+      try {
+        return new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: code,
+          maximumFractionDigits: code === 'CLP' || code === 'PYG' ? 0 : 2
+        }).format(value);
+      } catch (e) {
+        return value.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' ' + code;
+      }
+    }
+
+    function renderOptions() {
+      targetSelect.innerHTML = currencies.map((currency) => (
+        `<option value="${currency.code}">${currency.country} - ${currency.name} (${currency.code})</option>`
+      )).join('');
+    }
+
+    function renderConversion() {
+      const amount = getAmount();
+      const code = targetSelect.value || currencies[0].code;
+      const rate = rates[code] || 0;
+      resultEl.textContent = formatCurrency(amount * rate, code);
+
+      gridEl.innerHTML = currencies.map((currency) => {
+        const converted = formatCurrency(amount * (rates[currency.code] || 0), currency.code);
+        return `
+          <div class="cambio-card">
+            <div class="pais">${currency.country}</div>
+            <strong>${currency.code}</strong>
+            <span>${converted}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateStatus(dateText) {
+      if (ratesSource === 'online') {
+        statusEl.textContent = `Cotações carregadas online${dateText ? ' em ' + dateText : ''}. Valores sujeitos a variação.`;
+      } else {
+        statusEl.textContent = 'Cotações online indisponíveis no momento. Exibindo valores de referência temporários.';
+      }
+    }
+
+    async function loadRates() {
+      renderOptions();
+      renderConversion();
+      updateStatus();
+
+      try {
+        const response = await fetch('https://open.er-api.com/v6/latest/BRL');
+        if (!response.ok) throw new Error('Falha ao carregar cotações');
+        const data = await response.json();
+        const nextRates = {};
+        currencies.forEach((currency) => {
+          if (data.rates && typeof data.rates[currency.code] === 'number') {
+            nextRates[currency.code] = data.rates[currency.code];
+          }
+        });
+        if (Object.keys(nextRates).length < currencies.length - 1) throw new Error('Cotações incompletas');
+        rates = { ...fallbackRates, ...nextRates };
+        ratesSource = 'online';
+        renderConversion();
+        updateStatus(data.time_last_update_utc || '');
+      } catch (e) {
+        ratesSource = 'offline';
+        renderConversion();
+        updateStatus();
+      }
+    }
+
+    amountInput.addEventListener('input', renderConversion);
+    targetSelect.addEventListener('change', renderConversion);
+    loadRates();
+  })();
+
+  // Accessibility widget behavior (enhanced)
+  (function(){
+    const aToggle = document.getElementById('a11y-toggle');
+    const aPanel = document.getElementById('a11y-panel');
+    const aClose = document.getElementById('a11y-close');
+    const body = document.body;
+    const cards = Array.from(document.querySelectorAll('.a11y-card'));
+    let speaking = false;
+    let ttsActive = false;
+    let currentMode = null; // 'contrast-dark' | 'contrast-light' | 'highlight-links' | null
+
+    function setMode(mode) {
+      // toggle off if same mode clicked
+      if (currentMode === mode) {
+        body.classList.remove('a11y-contrast-dark','a11y-contrast-light','a11y-highlight-links');
+        currentMode = null;
+        showToast('Modo de acessibilidade desativado');
+        return;
+      }
+      body.classList.remove('a11y-contrast-dark','a11y-contrast-light','a11y-highlight-links');
+      if (mode === 'contrast-dark') body.classList.add('a11y-contrast-dark');
+      if (mode === 'contrast-light') body.classList.add('a11y-contrast-light');
+      if (mode === 'highlight-links') body.classList.add('a11y-highlight-links');
+      currentMode = mode;
+      if (mode === 'contrast-dark') showToast('Alto contraste escuro ativado');
+      if (mode === 'contrast-light') showToast('Alto contraste claro ativado');
+      if (mode === 'highlight-links') showToast('Links destacados');
+    }
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) { showToast('Leitor de tela não suportado neste navegador'); return; }
+      window.speechSynthesis.cancel();
+      const txt = (text||'').replace(/\s+/g,' ').trim().slice(0,600);
+      if (!txt) return;
+      const utter = new SpeechSynthesisUtterance(txt);
+      utter.lang = 'pt-BR'; utter.rate = 1.0;
+      window.speechSynthesis.speak(utter); speaking = true;
+      utter.onend = () => { speaking = false; };
+    }
+
+    // hover-to-speak implementation
+    let lastReadKey = null;
+    function onDocMouseOver(e) {
+      if (!ttsActive) return;
+      const el = e.target;
+      if (!el) return;
+      // Skip form inputs to avoid interference
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') return;
+      // find nearest readable ancestor
+      const closest = el.closest('p,h1,h2,h3,h4,li,a,label,button,span,div');
+      if (!closest) return;
+      // Don't read from inside form fields
+      if (closest.querySelector('input') || closest.querySelector('textarea') || closest.querySelector('select')) return;
+      const text = closest.innerText || closest.textContent || '';
+      if (!text) return;
+      const key = text.trim().slice(0,80);
+      if (key === lastReadKey) return;
+      lastReadKey = key;
+      speakText(text);
+    }
+
+    function enableHoverTTS() {
+      if (ttsActive) return; ttsActive = true;
+      document.addEventListener('mouseover', onDocMouseOver);
+      showToast('Leitor por movimento ativado: passe o mouse sobre o texto');
+    }
+
+    function disableHoverTTS() {
+      if (!ttsActive) return; ttsActive = false;
+      window.speechSynthesis.cancel(); lastReadKey = null;
+      document.removeEventListener('mouseover', onDocMouseOver);
+      showToast('Leitor desativado');
+    }
+
+    function openPanel() { aPanel.classList.add('show'); aPanel.setAttribute('aria-hidden','false'); aToggle.setAttribute('aria-expanded','true'); cards[0]?.focus(); }
+    function closePanel() { aPanel.classList.remove('show'); aPanel.setAttribute('aria-hidden','true'); aToggle.setAttribute('aria-expanded','false'); aToggle.focus(); }
+
+    aToggle.addEventListener('click', (e) => { e.stopPropagation(); if (aPanel.classList.contains('show')) closePanel(); else openPanel(); });
+    aClose.addEventListener('click', closePanel);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePanel();
+      if (e.key === 'Tab' && aPanel.classList.contains('show')) {
+        const focusable = Array.from(aPanel.querySelectorAll('button'));
+        if (!focusable.length) return;
+        const idx = focusable.indexOf(document.activeElement);
+        if (e.shiftKey && idx === 0) { focusable[focusable.length-1].focus(); e.preventDefault(); }
+        else if (!e.shiftKey && idx === focusable.length-1) { focusable[0].focus(); e.preventDefault(); }
+      }
+    });
+
+    document.addEventListener('click', (e) => { 
+      // Don't close panel if clicking on form inputs
+      const isFormElement = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT';
+      if (!isFormElement && !aPanel.contains(e.target) && e.target !== aToggle) closePanel(); 
+    });
+
+    aPanel.addEventListener('click', (e) => {
+      const btn = e.target.closest('.a11y-card');
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      if (!action) return;
+      if (action === 'tts') {
+        if (ttsActive) disableHoverTTS(); else enableHoverTTS();
+      } else {
+        setMode(action);
+      }
+    });
+
+    // keyboard activation on cards
+    cards.forEach(c => { c.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }); });
+
+    // Prevent event propagation on form inputs
+    const allInputs = document.querySelectorAll('input, textarea, select');
+    allInputs.forEach(input => {
+      input.addEventListener('click', (e) => { e.stopPropagation(); }, false);
+      input.addEventListener('mousedown', (e) => { e.stopPropagation(); }, false);
+      input.addEventListener('mouseup', (e) => { e.stopPropagation(); }, false);
+    });
+  })();
+</script>
+
 </body>
 </html>
